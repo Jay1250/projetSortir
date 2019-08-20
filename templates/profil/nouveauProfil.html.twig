@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    <header> Nouveau Profil \o/</header>
+    <div>
+        {{ form_start(nouveauProfil) }}
+
+        <div class="group">
+            {{ form_label(nouveauProfil.pseudo) }}
+            {{ form_widget(nouveauProfil.pseudo) }}
+            {{ form_errors(nouveauProfil.pseudo) }}
+        </div>
+
+        <div class="group">
+            {{ form_label(nouveauProfil.nom) }}
+            {{ form_widget(nouveauProfil.nom) }}
+            {{ form_errors(nouveauProfil.nom) }}
+        </div>
+
+        {{ form_row(nouveauProfil.prenom) }}
+        {{ form_row(nouveauProfil.telephone) }}
+        {{ form_row(nouveauProfil.mail) }}
+        {{ form_row(nouveauProfil.motDePasse) }}
+
+        <button type="submit">valider</button>
+        {{ form_end(nouveauProfil) }}
+    </div>
+{#    ->add('pseudo')
+    ->add('nom')
+    ->add('prenom')
+    ->add('telephone')
+    ->add('mail')
+    ->add('motDePasse')
+    ->add('administrateur')
+    ->add('actif')
+    ->add('sitesNoSite')
+    ->add('sortiesNoSortie')#}
+
+    <div>
+        {{ parent() }}
+    </div>
+
+
+
+{% endblock %}

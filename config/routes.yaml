@@ -1,14 +1,18 @@
-accueil:
+Accueil:
     path: /accueil
     controller: App\Controller\AccueilController::accueil
 
-connexion:
+Connexion:
     path: /connexion
     controller: App\Controller\ConnexionController:connexion
 
 Profil:
     path: /profil
     controller: App\Controller\ProfilController:profil
+
+NouveauProfil:
+    path: /profil/nouveauProfil
+    controller: App\Controller\ProfilController:nouveauProfil
 
 Sortie:
     path: /sortie

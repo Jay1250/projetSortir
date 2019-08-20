@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}LeTitre{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
+
     <body>
-        {% block body %}{% endblock %}
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+        {% block body %}un pied de page oO{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
