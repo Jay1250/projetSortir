@@ -5,3 +5,11 @@ accueil:
 connexion:
     path: /connexion
     controller: App\Controller\ConnexionController:connexion
+
+Profil:
+    path: /profil
+    controller: App\Controller\ProfilController:profil
+
+Sortie:
+    path: /sortie
+    controller: App\Controller\SortieController:sortie
