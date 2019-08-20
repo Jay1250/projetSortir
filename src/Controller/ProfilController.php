@@ -7,7 +7,7 @@ use App\Form\FormulaireAjouterProfilType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\validator\Constraints as Assert;
+
 
 class ProfilController extends AbstractController
 {
@@ -23,7 +23,7 @@ class ProfilController extends AbstractController
         $nouveauProfil = $this->createForm(FormulaireAjouterProfilType::class, $participants);
 
         $nouveauProfil->handleRequest($request);
-        if($nouveauProfil->isSubmitted()){
+        if($nouveauProfil->isSubmitted() && $nouveauProfil->isValid()){
             //blabla
 
             return $this->redirectToRoute("Profil");

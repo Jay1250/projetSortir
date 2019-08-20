@@ -19,24 +19,44 @@
             {{ form_errors(nouveauProfil.nom) }}
         </div>
 
-        {{ form_row(nouveauProfil.prenom) }}
-        {{ form_row(nouveauProfil.telephone) }}
-        {{ form_row(nouveauProfil.mail) }}
-        {{ form_row(nouveauProfil.motDePasse) }}
+        <div class="group">
+            {{ form_label(nouveauProfil.prenom) }}
+            {{ form_widget(nouveauProfil.prenom) }}
+            {{ form_errors(nouveauProfil.prenom) }}
+        </div>
+
+        <div class="group">
+            {{ form_label(nouveauProfil.telephone) }}
+            {{ form_widget(nouveauProfil.telephone) }}
+            {{ form_errors(nouveauProfil.telephone) }}
+        </div>
+
+        <div class="group">
+{#            {{ form_label(nouveauProfil.mail) }}#}
+{#            {{ form_widget(nouveauProfil.mail) }}#}
+{#            {{ form_errors(nouveauProfil.mail) }}#}
+            <label for="email">Email</label><br>
+            <input type="email" name="email" id="email">
+        </div>
+
+        <div class="group">
+{#            {{ form_label(nouveauProfil.motDePasse) }}#}
+{#            {{ form_widget(nouveauProfil.motDePasse) }}#}
+{#            {{ form_errors(nouveauProfil.motDePasse) }}#}
+            <label for="mdp">Mot de passe</label><br>
+            <input type="password" name="mdp" id="mdp">
+        </div>
+
+        <div class="group">
+            <label for="confirmMdp">Confirmer mot de passe</label><br>
+            <input type="password" name="confirmMdp" id="confirmMdp">
+        </div>
+
+
 
         <button type="submit">valider</button>
         {{ form_end(nouveauProfil) }}
     </div>
-{#    ->add('pseudo')
-    ->add('nom')
-    ->add('prenom')
-    ->add('telephone')
-    ->add('mail')
-    ->add('motDePasse')
-    ->add('administrateur')
-    ->add('actif')
-    ->add('sitesNoSite')
-    ->add('sortiesNoSortie')#}
 
     <div>
         {{ parent() }}

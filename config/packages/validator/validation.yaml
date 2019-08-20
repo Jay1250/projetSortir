@@ -1,0 +1,6 @@
+App\Entity\Participants:
+    properties:
+        mail:
+            - Email:
+                message: The email "{{ value }}"" is not valid email.
+                checkMx: true
