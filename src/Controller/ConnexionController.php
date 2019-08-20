@@ -24,6 +24,7 @@ class ConnexionController extends AbstractController
             //blabla
             $uneVariable->findOneBy(["pseudo" => "jorge"]);
 
+
             return $this->redirectToRoute("Accueil");
         }
 
