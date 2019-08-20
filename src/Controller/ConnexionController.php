@@ -15,14 +15,16 @@ class ConnexionController extends AbstractController
 {
     public function connexion(Request $request)
     {
+        $uneVariable = new Participants();
         $participant = new Participants();
         $connexion = $this->createForm(FormulaireConnexionType::class, $participant);
 
         $connexion->handleRequest($request);
         if($connexion->isSubmitted()){
             //blabla
+            $uneVariable->findOneBy(["pseudo" => "jorge"]);
 
-            return $this->redirectToRoute("Profil");
+            return $this->redirectToRoute("Accueil");
         }
 
         return $this->render('connexion/connexion.html.twig', array('form' => $connexion->createView(),
