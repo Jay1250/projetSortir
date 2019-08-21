@@ -34,4 +34,21 @@ class ProfilController extends AbstractController
         ]);
     }
 
+    public function modifierProfil(Request $request)
+    {
+        $participants = new Participants();
+        $nouveauProfil = $this->createForm(FormulaireAjouterProfilType::class, $participants);
+
+        $nouveauProfil->handleRequest($request);
+        if($nouveauProfil->isSubmitted() && $nouveauProfil->isValid()){
+            //blabla
+
+            return $this->redirectToRoute("Profil");
+        }
+        return $this->render('profil/nouveauProfil.html.twig', [
+            'controller_name' => 'ProfilController',
+            'nouveauProfil' => $nouveauProfil->createView()
+        ]);
+    }
+
 }

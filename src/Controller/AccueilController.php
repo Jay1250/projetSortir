@@ -9,7 +9,7 @@ class AccueilController extends AbstractController
 {
     public function accueil()
     {
-        return $this->render('accueil/index.html.twig', [
+        return $this->render('accueil/accueil.html.twig', [
             'controller_name' => 'AccueilController',
         ]);
     }
