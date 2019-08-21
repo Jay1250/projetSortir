@@ -14,6 +14,8 @@ class FormulaireConnexionType extends AbstractType
         $builder
             ->add('pseudo')
             ->add('motDePasse')
+            ->add('submit', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, ['label' => 'Ok', 'attr' => ['class' => 'btn-primary btn-block']])
+
         ;
     }
 
