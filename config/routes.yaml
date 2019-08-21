@@ -10,6 +10,10 @@ Profil:
     path: /profil
     controller: App\Controller\ProfilController:profil
 
+AfficherProfil:
+  path: /profil/afficherProfil
+  controller: App\Controller\ProfilController:afficherProfil
+
 NouveauProfil:
     path: /profil/nouveauProfil
     controller: App\Controller\ProfilController:nouveauProfil
