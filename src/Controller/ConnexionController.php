@@ -14,13 +14,16 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ConnexionController extends AbstractController
 {
-    public function connexion(Request $request, AuthenticationUtils $authenticationUtils)
+    public function connexion(AuthenticationUtils $authenticationUtils)
     {
-        $uneVariable = new Participants();
+//        if ($this->getUser()) {
+//            $this->redirectToRoute('Accueil');
+//        }
+
         $participant = new Participants();
+
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
-
         $connexion = $this->createForm(FormulaireConnexionType::class, $participant);
 
 
@@ -28,6 +31,10 @@ class ConnexionController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
         ));
+    }
+    public function deconnexion()
+    {
+        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 }
 

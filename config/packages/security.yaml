@@ -11,12 +11,19 @@ security:
             provider: our_db_provider
             anonymous: ~
             form_login:
-                login_path: login
-                check_path: login
+                login_path: /connexion
+                check_path: /connexion
             logout_on_user_change: true
             logout:
-                path: logout
-                target: Connexion
+                path: Deconnexion
+                target: Accueil
+            guard:
+                authenticators:
+                    - App\Security\AppCustomAuthenticator
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
 
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

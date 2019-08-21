@@ -1,10 +1,14 @@
-Accueil:
-    path: /accueil
-    controller: App\Controller\AccueilController::accueil
-
 Connexion:
     path: /connexion
     controller: App\Controller\ConnexionController:connexion
+
+Deconnexion:
+    path: /deconnexion
+    controller: App\Controller\ConnexionController:deconnexion
+
+Accueil:
+    path: /accueil
+    controller: App\Controller\AccueilController::accueil
 
 Profil:
     path: /profil
