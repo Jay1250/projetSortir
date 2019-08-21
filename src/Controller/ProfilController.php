@@ -36,19 +36,24 @@ class ProfilController extends AbstractController
 
     public function modifierProfil(Request $request)
     {
-        $participants = new Participants();
-        $nouveauProfil = $this->createForm(FormulaireAjouterProfilType::class, $participants);
+        $pseudoParticipant = $request->attributes->get('participant');
+        $participant = new Participants();
+        $repository = $this->getDoctrine()->getRepository(Participants::class);
 
-        $nouveauProfil->handleRequest($request);
-        if($nouveauProfil->isSubmitted() && $nouveauProfil->isValid()){
-            //blabla
-
+        if($participant= $repository->findOneBy(["pseudo" => $pseudoParticipant])){
+            $participant = $this->createForm(FormulaireAjouterProfilType::class, $participant);
+        }
+        else{
+            return $this->redirectToRoute('Accueil');
+        }
+        $participant->handleRequest($request);
+        if($participant->isSubmitted() && $participant->isValid()){
+            $task = $participant->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($task);
+            $entityManager->flush();
             return $this->redirectToRoute("Profil");
         }
-        return $this->render('profil/nouveauProfil.html.twig', [
-            'controller_name' => 'ProfilController',
-            'nouveauProfil' => $nouveauProfil->createView()
-        ]);
+        return $this->render('profil/modifierProfil.html.twig', array('nouveauProfil' => $participant->createView()));
     }
-
 }

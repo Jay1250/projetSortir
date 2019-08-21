@@ -80,7 +80,7 @@ class Sorties
     private $urlphoto;
 
     /**
-     * @var \Etats
+     * @var Etats
      *
      * @ORM\ManyToOne(targetEntity="Etats")
      * @ORM\JoinColumns({
@@ -90,7 +90,7 @@ class Sorties
     private $etatsNoEtat;
 
     /**
-     * @var \Lieux
+     * @var Lieux
      *
      * @ORM\ManyToOne(targetEntity="Lieux")
      * @ORM\JoinColumns({
@@ -100,7 +100,7 @@ class Sorties
     private $lieuxNoLieu;
 
     /**
-     * @var \Participants
+     * @var Participants
      *
      * @ORM\ManyToOne(targetEntity="Participants")
      * @ORM\JoinColumns({
@@ -110,7 +110,7 @@ class Sorties
     private $organisateur;
 
     /**
-     * @var \Sites
+     * @var Sites
      *
      * @ORM\ManyToOne(targetEntity="Sites")
      * @ORM\JoinColumns({

@@ -3,63 +3,38 @@
 {% block title %}{{ parent() }}{% endblock %}
 
 {% block body %}
-    <header> Nouveau Profil \o/</header>
-    <div>
-        {{ form_start(nouveauProfil) }}
 
-        <div class="group">
-            {{ form_label(nouveauProfil.pseudo) }}
-            {{ form_widget(nouveauProfil.pseudo) }}
+    <div class="row mt-4">
+
+        {{ form_start(nouveauProfil, {'attr': {'class': 'border border-light p-5 col-md-4 offset-4'}}) }}
+
+            <p class="h4 mb-4 text-center">Mon profil</p>
+
+            {{ form_widget(nouveauProfil.pseudo, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Pseudo'}}) }}
             {{ form_errors(nouveauProfil.pseudo) }}
-        </div>
 
-        <div class="group">
-            {{ form_label(nouveauProfil.nom) }}
-            {{ form_widget(nouveauProfil.nom) }}
+            {{ form_widget(nouveauProfil.nom, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Nom'}}) }}
             {{ form_errors(nouveauProfil.nom) }}
-        </div>
 
-        <div class="group">
-            {{ form_label(nouveauProfil.prenom) }}
-            {{ form_widget(nouveauProfil.prenom) }}
+            {{ form_widget(nouveauProfil.prenom, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Prénom'}}) }}
             {{ form_errors(nouveauProfil.prenom) }}
-        </div>
 
-        <div class="group">
-            {{ form_label(nouveauProfil.telephone) }}
-            {{ form_widget(nouveauProfil.telephone) }}
+            {{ form_widget(nouveauProfil.telephone, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Téléphone'}}) }}
             {{ form_errors(nouveauProfil.telephone) }}
-        </div>
 
-        <div class="group">
-{#            {{ form_label(nouveauProfil.mail) }}#}
-{#            {{ form_widget(nouveauProfil.mail) }}#}
-{#            {{ form_errors(nouveauProfil.mail) }}#}
-            <label for="email">Email</label><br>
-            <input type="email" name="email" id="email">
-        </div>
+            {{ form_widget(nouveauProfil.mail, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Mail'}}) }}
+            {{ form_errors(nouveauProfil.mail) }}
 
-        <div class="group">
-{#            {{ form_label(nouveauProfil.motDePasse) }}#}
-{#            {{ form_widget(nouveauProfil.motDePasse) }}#}
-{#            {{ form_errors(nouveauProfil.motDePasse) }}#}
-            <label for="mdp">Mot de passe</label><br>
-            <input type="password" name="mdp" id="mdp">
-        </div>
+            {{ form_widget(nouveauProfil.motDePasse, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Password'}}) }}
+            {{ form_errors(nouveauProfil.motDePasse) }}
 
-        <div class="group">
-            <label for="confirmMdp">Confirmer mot de passe</label><br>
-            <input type="password" name="confirmMdp" id="confirmMdp">
-        </div>
+            {{ form_widget(nouveauProfil.sitesNoSite, {'attr': {'class': 'browser-default custom-select mb-4'}}) }}
+            {{ form_errors(nouveauProfil.sitesNoSite) }}
 
-        <button type="submit">valider</button>
-        {{ form_end(nouveauProfil) }}
+
+            <button class="btn btn-info my-4 btn-block" type="submit">Modifier</button>
+            {{ form_end(nouveauProfil) }}
+
     </div>
-
-    <div>
-        {{ parent() }}
-    </div>
-
-
 
 {% endblock %}

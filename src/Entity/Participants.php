@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Participants
  *
@@ -80,7 +81,7 @@ class Participants
     private $actif;
 
     /**
-     * @var \Sites
+     * @var Sites
      *
      * @ORM\ManyToOne(targetEntity="Sites")
      * @ORM\JoinColumns({
@@ -244,5 +245,4 @@ class Participants
 
         return $this;
     }
-
 }

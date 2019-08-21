@@ -14,6 +14,10 @@ NouveauProfil:
     path: /profil/nouveauProfil
     controller: App\Controller\ProfilController:nouveauProfil
 
+ModifierProfil:
+    path: /profil/{participant}
+    controller: App\Controller\ProfilController:modifierProfil
+
 Sortie:
     path: /sortie
     controller: App\Controller\SortieController:sortie
