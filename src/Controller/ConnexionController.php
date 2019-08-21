@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ConnexionController extends AbstractController
 {
-    public function connexion(AuthenticationUtils $authenticationUtils)
+    public function connexion(Request $request, AuthenticationUtils $authenticationUtils)
     {
 //        if ($this->getUser()) {
 //            $this->redirectToRoute('Accueil');
@@ -24,10 +24,10 @@ class ConnexionController extends AbstractController
 
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
-        $connexion = $this->createForm(FormulaireConnexionType::class, $participant);
 
 
-        return $this->render('connexion/connexion.html.twig', array('form' => $connexion->createView(),
+
+        return $this->render('connexion/connexion.html.twig', array(
             'last_username' => $lastUsername,
             'error' => $error,
         ));
