@@ -12,7 +12,7 @@ security:
             anonymous: ~
             form_login:
                 login_path: Connexion
-                check_path: Connexion
+                check_path: Accueil
             logout_on_user_change: true
             logout:
                 path: Deconnexion
@@ -29,9 +29,9 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-#        encoders:
-#            App\Entity\Participants:
-#                algorithm: bcrypt
+    encoders:
+        App\Entity\Participants:
+            algorithm: bcrypt
 
 
 #role_hierarchy:

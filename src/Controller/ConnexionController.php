@@ -27,6 +27,7 @@ class ConnexionController extends AbstractController
 
 
 
+
         return $this->render('connexion/connexion.html.twig', array(
             'last_username' => $lastUsername,
             'error' => $error,

@@ -35,6 +35,7 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request)
     {
+        echo $request->isMethod('POST');
         return 'app_login' === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
@@ -83,7 +84,7 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-//        return new RedirectResponse($this->urlGenerator->generate($targetPath));
+        //return new RedirectResponse($this->urlGenerator->generate('Accueil'));
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);

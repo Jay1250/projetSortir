@@ -17,13 +17,18 @@
     {#            {{ form_widget(form.motDePasse, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Mot de passe'}}) }}#}
     {#            <input name="_username" id="_username">#}
 
-                <input class="border border-light p-5" type="text" value="{{ last_username }}" name="_username" id="pseudo" required autofocus>
-                <input class="border border-light p-5"  type="password" name="_password" id="motDePasse" >
+                <input class="form-control mb-4" type="text" value="{{ last_username }}" name="_username" id="pseudo" required autofocus>
+                <input class="form-control mb-4"  type="password" name="_password" id="motDePasse" >
                 <div class="d-flex justify-content-between">
                     <div>
+{#                        <div class="custom-control custom-checkbox">#}
+{#                            <input type="checkbox" class="custom-control-input" id="remember_me" name="remember_me">#}
+{#                            <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>#}
+{#                        </div>#}
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="remember_me" name="_remember_me">
-                            <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+                            <label>
+                                <input type="checkbox" name="_remember_me"> Remember me
+                            </label>
                         </div>
                     </div>
                     <div>
