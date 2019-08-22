@@ -12,7 +12,7 @@ security:
             anonymous: ~
             form_login:
                 login_path: Connexion
-                check_path: Accueil
+                check_path: Connexion
             logout_on_user_change: true
             logout:
                 path: Deconnexion
