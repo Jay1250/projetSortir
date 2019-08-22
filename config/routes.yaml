@@ -11,7 +11,7 @@ Profil:
     controller: App\Controller\ProfilController:profil
 
 AfficherProfil:
-  path: /profil/afficherProfil
+  path: /profil/afficherProfil/{participant}
   controller: App\Controller\ProfilController:afficherProfil
 
 NouveauProfil:
@@ -19,9 +19,13 @@ NouveauProfil:
     controller: App\Controller\ProfilController:nouveauProfil
 
 ModifierProfil:
-    path: /profil/{participant}
+    path: /profil/modifierProfil
     controller: App\Controller\ProfilController:modifierProfil
 
 Sortie:
     path: /sortie
     controller: App\Controller\SortieController:sortie
+
+NouvelleSortie:
+  path: /sortie/nouvelleSortie
+  controller: App\Controller\SortieController:nouvelleSortie

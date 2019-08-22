@@ -36,8 +36,9 @@ class ProfilController extends AbstractController
 
     public function afficherProfil(Request $request){
         $participant = new Participants();
+        $pseudoParticipant = $request->attributes->get('participant');
         $repository = $this->getDoctrine()->getRepository(Participants::class);
-        if($participant= $repository->findOneBy(["pseudo" => "Pierrot"])){
+        if($participant= $repository->findOneBy(["pseudo" => $pseudoParticipant])){
 
         }
         else{
@@ -48,11 +49,10 @@ class ProfilController extends AbstractController
 
     public function modifierProfil(Request $request)
     {
-        $pseudoParticipant = $request->attributes->get('participant');
         $participant = new Participants();
         $repository = $this->getDoctrine()->getRepository(Participants::class);
 
-        if($participant= $repository->findOneBy(["pseudo" => $pseudoParticipant])){
+        if($participant= $repository->findOneBy(["pseudo" => "Pierrot"])){
             $participant = $this->createForm(FormulaireAjouterProfilType::class, $participant);
         }
         else{
