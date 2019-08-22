@@ -18,7 +18,7 @@ security:
             logout_on_user_change: true
             logout:
                 path: Deconnexion
-                target: Accueil
+                target: Connexion
             guard:
                 authenticators:
                     - App\Security\AppCustomAuthenticator

@@ -17,7 +17,7 @@ class FormulaireAjouterProfilType extends AbstractType
             ->add('prenom')
             ->add('telephone')
             ->add('mail')
-            ->add('motDePasse') #, \Symfony\Component\Form\Extension\Core\Type\PasswordType::class
+//            ->add('motDePasse') #, \Symfony\Component\Form\Extension\Core\Type\PasswordType::class
 //            ->add('administrateur')
            // ->add('actif')
             ->add('sitesNoSite')
