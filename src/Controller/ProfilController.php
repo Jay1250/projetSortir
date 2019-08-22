@@ -49,10 +49,12 @@ class ProfilController extends AbstractController
 
     public function modifierProfil(Request $request)
     {
-        $participant = new Participants();
         $repository = $this->getDoctrine()->getRepository(Participants::class);
 
-        if($participant= $repository->findOneBy(["pseudo" => "Pierrot"])){
+        $usr= $this->get('security.token_storage')->getToken()->getUser();
+        $pseudo=$usr->getUsername();
+
+        if($participant= $repository->findOneBy(["pseudo" => $pseudo])){
             $participant = $this->createForm(FormulaireAjouterProfilType::class, $participant);
         }
         else{
