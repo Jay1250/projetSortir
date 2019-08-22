@@ -84,11 +84,20 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+
+        $user = $token->getUser();
+
+        if ($user->hasCompleteProfile() == false) {
+            $url = $this->router->generate('Accueil');
+
+            return new RedirectResponse($url);
+        }
         //return new RedirectResponse($this->urlGenerator->generate('Accueil'));
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
+
 
     protected function getLoginUrl()
     {

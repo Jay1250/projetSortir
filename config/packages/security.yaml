@@ -13,6 +13,8 @@ security:
             form_login:
                 login_path: Connexion
                 check_path: Connexion
+                default_target_path: Accueil
+                always_use_default_target_path: true
             logout_on_user_change: true
             logout:
                 path: Deconnexion
