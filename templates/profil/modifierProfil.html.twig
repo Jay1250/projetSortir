@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div class="row mt-4">
+
+        {{ form_start(nouveauProfil, {'attr': {'class': 'border border-light p-5 col-md-4 offset-4'}}) }}
+
+            <p class="h4 mb-4 text-center">Mon profil</p>
+
+            {{ form_widget(nouveauProfil.pseudo, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Pseudo'}}) }}
+            {{ form_errors(nouveauProfil.pseudo) }}
+
+            {{ form_widget(nouveauProfil.nom, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Nom'}}) }}
+            {{ form_errors(nouveauProfil.nom) }}
+
+            {{ form_widget(nouveauProfil.prenom, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Prénom'}}) }}
+            {{ form_errors(nouveauProfil.prenom) }}
+
+            {{ form_widget(nouveauProfil.telephone, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Téléphone'}}) }}
+            {{ form_errors(nouveauProfil.telephone) }}
+
+            {{ form_widget(nouveauProfil.mail, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Mail'}}) }}
+            {{ form_errors(nouveauProfil.mail) }}
+
+            {{ form_widget(nouveauProfil.motDePasse, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Password'}}) }}
+            {{ form_errors(nouveauProfil.motDePasse) }}
+
+            {{ form_widget(nouveauProfil.sitesNoSite, {'attr': {'class': 'browser-default custom-select mb-4'}}) }}
+            {{ form_errors(nouveauProfil.sitesNoSite) }}
+
+
+            <button class="btn btn-info my-4 btn-block" type="submit">Modifier</button>
+            {{ form_end(nouveauProfil) }}
+
+    </div>
+
+{% endblock %}

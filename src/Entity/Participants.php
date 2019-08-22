@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Participants
@@ -81,7 +80,7 @@ class Participants implements UserInterface
     private $actif;
 
     /**
-     * @var \Sites
+     * @var Sites
      *
      * @ORM\ManyToOne(targetEntity="Sites")
      * @ORM\JoinColumns({
@@ -246,6 +245,10 @@ class Participants implements UserInterface
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->pseudo;
+    }
     /**
      * Returns the roles granted to the user.
      *

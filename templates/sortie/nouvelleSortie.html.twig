@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-8 offset-2">
+            <!-- Search Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Nouvelle sortie</h5>
+                <div class="card-body">
+                    {{ form_start(nouvelleSortie, {'attr': {'class': 'border border-light p-5'}}) }}
+                    <div class="row m-4">
+                        <div class="input-group col-md-6 offset-3">
+                            {{ form_widget(nouvelleSortie.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
+                            {{ form_errors(nouvelleSortie.nom) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-6">
+                       <label>Date début</label>
+                        </div>
+                        <div class="input-group col-md-6">
+                       <label>Date cloture</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-4">
+                            {{ form_widget(nouvelleSortie.datedebut, {'attr': {'class': 'form-control', 'type': 'date'}}) }}
+                            {{ form_errors(nouvelleSortie.datedebut) }}
+                        </div>
+                        <div class="input-group col-md-4 offset-2">
+                            {{ form_widget(nouvelleSortie.datecloture, {'attr': {'class': 'form-control mb-4', 'type': 'date'}}) }}
+                            {{ form_errors(nouvelleSortie.datecloture) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-6">
+                            <label>Nombre d'inscrits</label>
+                        </div>
+                        <div class="input-group col-md-6">
+                            <label>Durée</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-2">
+                            {{ form_widget(nouvelleSortie.nbinscriptionsmax, {'attr': {'class': 'form-control mb-4'}}) }}
+                            {{ form_errors(nouvelleSortie.nbinscriptionsmax) }}
+                        </div>
+                        <div class="input-group col-md-2 offset-4">
+                            {{ form_widget(nouvelleSortie.duree, {'attr': {'class': 'form-control mb-4', 'min': '10'}}) }}
+                            {{ form_errors(nouvelleSortie.duree) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-6">
+                            <label>Lieu : </label>
+                        </div>
+                        <div class="input-group col-md-6">
+                            <label>Site : </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-4">
+                            {{ form_widget(nouvelleSortie.lieuxNoLieu, {'attr': {'class': 'browser-default custom-select mb-4', 'placeholder': 'Lieu'}}) }}
+                            {{ form_errors(nouvelleSortie.lieuxNoLieu) }}
+                        </div>
+                        <div class="input-group col-md-4 offset-2">
+                            {{ form_widget(nouvelleSortie.sortiesNoSortie, {'attr': {'class': 'browser-default custom-select mb-4', 'placeholder': 'Num Sortie'}}) }}
+                            {{ form_errors(nouvelleSortie.sortiesNoSortie) }}
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        {{ form_widget(nouvelleSortie.descriptioninfos, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Description'}}) }}
+                        {{ form_errors(nouvelleSortie.descriptioninfos) }}
+                    </div>
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary mt-2" type="submit">Créer</button>
+                    </span>
+                    {{ form_end(nouvelleSortie) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

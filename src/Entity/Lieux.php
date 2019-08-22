@@ -50,7 +50,7 @@ class Lieux
     private $longitude;
 
     /**
-     * @var \Villes
+     * @var Villes
      *
      * @ORM\ManyToOne(targetEntity="Villes")
      * @ORM\JoinColumns({
@@ -124,5 +124,8 @@ class Lieux
         return $this;
     }
 
-
+    public function __toString()
+    {
+        return $this->nomLieu;
+    }
 }

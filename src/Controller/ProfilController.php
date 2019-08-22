@@ -34,4 +34,38 @@ class ProfilController extends AbstractController
         ]);
     }
 
+    public function afficherProfil(Request $request){
+        $participant = new Participants();
+        $pseudoParticipant = $request->attributes->get('participant');
+        $repository = $this->getDoctrine()->getRepository(Participants::class);
+        if($participant= $repository->findOneBy(["pseudo" => $pseudoParticipant])){
+
+        }
+        else{
+            return $this->redirectToRoute('Accueil');
+        }
+        return $this->render('profil/afficherProfil.html.twig', ['participant' => $participant]);
+    }
+
+    public function modifierProfil(Request $request)
+    {
+        $participant = new Participants();
+        $repository = $this->getDoctrine()->getRepository(Participants::class);
+
+        if($participant= $repository->findOneBy(["pseudo" => "Pierrot"])){
+            $participant = $this->createForm(FormulaireAjouterProfilType::class, $participant);
+        }
+        else{
+            return $this->redirectToRoute('Accueil');
+        }
+        $participant->handleRequest($request);
+        if($participant->isSubmitted() && $participant->isValid()){
+            $task = $participant->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($task);
+            $entityManager->flush();
+            return $this->redirectToRoute("Profil");
+        }
+        return $this->render('profil/modifierProfil.html.twig', array('nouveauProfil' => $participant->createView()));
+    }
 }

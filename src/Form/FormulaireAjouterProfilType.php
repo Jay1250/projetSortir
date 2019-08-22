@@ -19,9 +19,9 @@ class FormulaireAjouterProfilType extends AbstractType
             ->add('mail')
             ->add('motDePasse')
 //            ->add('administrateur')
-//            ->add('actif')
-//            ->add('sitesNoSite')
-//            ->add('sortiesNoSortie')
+           // ->add('actif')
+            ->add('sitesNoSite')
+          //  ->add('sortiesNoSortie')
         ;
     }
 
@@ -30,5 +30,10 @@ class FormulaireAjouterProfilType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Participants::class,
         ]);
+    }
+
+    public function __toString()
+    {
+        return (string) $this->get;
     }
 }
