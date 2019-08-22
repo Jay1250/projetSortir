@@ -66,7 +66,7 @@ class ProfilController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($task);
             $entityManager->flush();
-            return $this->redirectToRoute("Profil");
+            return $this->redirectToRoute("AfficherProfil", array('participant' => $pseudo));
         }
         return $this->render('profil/modifierProfil.html.twig', array('nouveauProfil' => $participant->createView()));
     }
