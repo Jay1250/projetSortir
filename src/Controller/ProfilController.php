@@ -54,17 +54,24 @@ class ProfilController extends AbstractController
         $usr= $this->get('security.token_storage')->getToken()->getUser();
         $pseudo=$usr->getUsername();
 
+        $participant=new Participants();
+
         if($participant= $repository->findOneBy(["pseudo" => $pseudo])){
-            $participant = $this->createForm(FormulaireAjouterProfilType::class, $participant);
+            $modifierParticipant = $this->createForm(FormulaireAjouterProfilType::class, $participant);
         }
         else{
             return $this->redirectToRoute('Accueil');
         }
-        $participant->handleRequest($request);
-        if($participant->isSubmitted() && $participant->isValid()){
-            $task = $participant->getData();
+        $modifierParticipant->handleRequest($request);
+        if($modifierParticipant->isSubmitted() && $modifierParticipant->isValid()){
+
+            $password = $request->request->get('motDePasse');
+
+            $participant->setMotDePasse($password);
+
+//            $task = $modifierParticipant->getData();
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($task);
+            $entityManager->persist($participant);
             $entityManager->flush();
             return $this->redirectToRoute("AfficherProfil", array('participant' => $pseudo));
         }
