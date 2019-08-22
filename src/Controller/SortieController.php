@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etats;
 use App\Entity\Participants;
 use App\Entity\Sorties;
 use App\Form\CreerSortieType;
@@ -21,24 +22,16 @@ class SortieController extends AbstractController
     public function nouvelleSortie(Request $request)
     {
         $sorties = new Sorties();
-        $participant = new Participants();
         $nouvelleSortie = $this->createForm(CreerSortieType::class, $sorties);
-
         $nouvelleSortie->handleRequest($request);
-        if($nouvelleSortie->isSubmitted() && $nouvelleSortie->isValid()){
-
-            $repository = $this->getDoctrine()->getRepository(Participants::class);
-            $participant=  $repository->findOneBy(["pseudo" => "Pierrot"]);
-
-
-            $sorties->setOrganisateur($repository->findOneBy(["pseudo" => "Pierrot"]));
-
-            $task = $nouvelleSortie->getData();
+        if($nouvelleSortie->isSubmitted() && $nouvelleSortie->isValid() && $nouvelleSortie->getClickedButton()){
+            $sorties->setOrganisateur($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($task);
+            $sorties->setEtatsNoEtat($entityManager->getReference(Etats::class,
+                $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Cree));
+            $entityManager->persist($sorties);
             $entityManager->flush();
-
-            return $this->redirectToRoute("Profil");
+            return $this->redirectToRoute("Accueil");
         }
         return $this->render('sortie/nouvelleSortie.html.twig', [
             'controller_name' => 'ProfilController',
