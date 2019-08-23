@@ -39,13 +39,13 @@ class ProfilController extends AbstractController
         $participant = new Participants();
         $pseudoParticipant = $request->attributes->get('participant');
         $repository = $this->getDoctrine()->getRepository(Participants::class);
-        if($participant= $repository->findOneBy(["pseudo" => $pseudoParticipant])){
+        if ($participant = $repository->findOneBy(["pseudo" => $pseudoParticipant])) {
 
-        }
-        else{
+        } else {
             return $this->redirectToRoute('Accueil');
         }
         return $this->render('profil/afficherProfil.html.twig', ['participant' => $participant]);
+
     }
 
     public function modifierProfil(Request $request, UserPasswordEncoderInterface $encoder)

@@ -16,11 +16,10 @@ class ConnexionController extends AbstractController
 {
     public function connexion(Request $request, AuthenticationUtils $authenticationUtils)
     {
-//        if ($this->getUser()) {
-//            $this->redirectToRoute('Accueil');
-//        }
-
-        $participant = new Participants();
+        $auth_checker = $this->get('security.authorization_checker');
+        if ( $this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')){
+            return $this->redirectToRoute('Accueil');
+        }
 
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
