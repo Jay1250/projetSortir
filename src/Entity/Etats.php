@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Etats
 {
+    const Creee = 1;
+    const Ouverte = 2;
+    const Cloturee = 3;
+    const Activite_en_cours = 4;
+    const Passee = 5;
+    const Annulee = 6;
     /**
      * @var int
      *
