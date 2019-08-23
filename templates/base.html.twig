@@ -44,6 +44,28 @@
                 <!-- Bootstrap core JavaScript -->
                 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
                 <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+                <SCRIPT type="text/javascript">
+                    $( "#lieuSelect" ).change(function() {
+                        alert( "Handler for .change() called." );
+                        $.ajax({
+                            url:"{{ path('FiltrerSortieLieux') }}",
+                            type: "GET",
+                            dataType:"json",
+                            data:{
+                                "lieu":$(this).children("option:selected").val()
+                            },
+                            async: true,
+                            success:function(data)
+                            {
+                                console.log(data);
+                                $('#nomLieu').text(data.nomLieu);
+                            }
+                        })
+                            .fail(function( jqXHR, textStatus ) {
+                                alert( "Request failed: " + textStatus );
+                            })
+                    });
+                </SCRIPT>
             {% endblock %}
         </div>
     </body>

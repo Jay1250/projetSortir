@@ -36,6 +36,7 @@ class CreerSortieType extends AbstractType
             ->add('sortiesNoSortie')
             ->add('creer', SubmitType::class, ['label' => 'Enregistrer'])
            ->add('creer_et_ouvrir', SubmitType::class, ['label' => 'Enregistrer et publier'])
+                ->add('villes_no_ville')
             //->add('participantsNoParticipant')
         ;
     }

@@ -63,7 +63,7 @@
                     </div>
                     <div class="row">
                         <div class="input-group col-md-4">
-                            {{ form_widget(nouvelleSortie.lieuxNoLieu, {'attr': {'class': 'browser-default custom-select mb-4', 'placeholder': 'Lieu'}}) }}
+                            {{ form_widget(nouvelleSortie.lieuxNoLieu, {'attr': {'class': 'chg browser-default custom-select mb-4', 'placeholder': 'Lieu'}}) }}
                             {{ form_errors(nouvelleSortie.lieuxNoLieu) }}
                         </div>
                         <div class="input-group col-md-4 offset-2">
@@ -75,6 +75,12 @@
                         {{ form_widget(nouvelleSortie.descriptioninfos, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Description'}}) }}
                         {{ form_errors(nouvelleSortie.descriptioninfos) }}
                     </div>
+
+                    <div class="input-group">
+                        {{ form_widget(nouvelleSortie.villes_no_ville, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Description'}}) }}
+                        {{ form_errors(nouvelleSortie.villes_no_ville) }}
+                    </div>
+
                     <span class="input-group-btn">
                         {{ form_widget(nouvelleSortie.creer, {'attr': {'class': 'btn btn-secondary mt-2'}}) }}
                         {{ form_widget(nouvelleSortie.creer_et_ouvrir, {'attr': {'class': 'btn btn-secondary mt-2'}}) }}
@@ -84,4 +90,12 @@
             </div>
         </div>
     </div>
+<p id="pTest">Male</p>
+<button>change</button>
+    <select name="lieuSelect" id="lieuSelect">
+        {% for lieu in lieux %}
+            <option value="{{ lieu.noLieu }}">{{ lieu.nomLieu }}</option>
+        {% endfor %}
+    </select>
+    <label id="nomLieu"></label>
 {% endblock %}

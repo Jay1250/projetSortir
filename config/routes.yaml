@@ -1,3 +1,4 @@
+
 Connexion:
     path: /connexion
     controller: App\Controller\ConnexionController:connexion
@@ -10,13 +11,14 @@ Accueil:
     path: /accueil
     controller: App\Controller\AccueilController::accueil
 
+
 Profil:
     path: /profil
     controller: App\Controller\ProfilController:profil
 
 AfficherProfil:
   path: /profil/afficherProfil/{participant}
-  controller: App\Controller\ProfilController:afficherProfil
+  controller: App\Controller\ProfilController:afficherProfilfiltrerLieux
 
 NouveauProfil:
     path: /profil/nouveauProfil
@@ -26,6 +28,7 @@ ModifierProfil:
     path: /profil/modifierProfil
     controller: App\Controller\ProfilController:modifierProfil
 
+
 Sortie:
     path: /sortie
     controller: App\Controller\SortieController:sortie
@@ -33,3 +36,7 @@ Sortie:
 NouvelleSortie:
   path: /sortie/nouvelleSortie
   controller: App\Controller\SortieController:nouvelleSortie
+
+FiltrerSortieLieux:
+  path: /sortie/filterLieux
+  controller: App\Controller\SortieController:filtrerLieux
