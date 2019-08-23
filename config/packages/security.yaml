@@ -18,7 +18,7 @@ security:
             logout_on_user_change: true
             logout:
                 path: Deconnexion
-                target: Accueil
+                target: Connexion
             guard:
                 authenticators:
                     - App\Security\AppCustomAuthenticator
@@ -33,16 +33,16 @@ security:
 
     encoders:
         App\Entity\Participants:
-            algorithm: bcrypt
+            algorithm: auto
 
 
-#role_hierarchy:
-#    ROLE_ADMIN:      ROLE_USER
-#    #ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-#
-#    # Easy way to control access for large sections of your site
-#    # Note: Only the *first* access control that matches will be used
-#    access_control:
-#        - { path: ^/admin, roles: ROLE_ADMIN }
-#        - { path: ^/member, roles: ROLE_USER }
+    role_hierarchy:
+        ROLE_ADMIN:      ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+        # Easy way to control access for large sections of your site
+        # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/connexion, role:  IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: ROLE_USER }
 

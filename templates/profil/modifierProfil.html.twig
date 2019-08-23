@@ -25,8 +25,10 @@
             {{ form_widget(nouveauProfil.mail, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Mail'}}) }}
             {{ form_errors(nouveauProfil.mail) }}
 
-            {{ form_widget(nouveauProfil.motDePasse, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Password'}}) }}
-            {{ form_errors(nouveauProfil.motDePasse) }}
+            <input class="form-control mb-4"  type="password" name="motDePasse" id="motDePasse" placeholder="Password" >
+
+{#            {{ form_widget(nouveauProfil.motDePasse, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Password'}}) }}#}
+{#            {{ form_errors(nouveauProfil.motDePasse) }}#}
 
             {{ form_widget(nouveauProfil.sitesNoSite, {'attr': {'class': 'browser-default custom-select mb-4'}}) }}
             {{ form_errors(nouveauProfil.sitesNoSite) }}

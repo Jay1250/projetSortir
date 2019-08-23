@@ -16,17 +16,12 @@ class ConnexionController extends AbstractController
 {
     public function connexion(Request $request, AuthenticationUtils $authenticationUtils)
     {
-//        if ($this->getUser()) {
-//            $this->redirectToRoute('Accueil');
-//        }
-
-        $participant = new Participants();
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('Accueil');
+        }
 
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
-
-
-
 
         return $this->render('connexion/connexion.html.twig', array(
             'last_username' => $lastUsername,
