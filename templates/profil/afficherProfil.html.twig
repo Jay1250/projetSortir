@@ -28,8 +28,10 @@
             </div>
 
 
+            {%  if (participant.pseudo == app.user)%}
+                <a href="{{ path('ModifierProfil') }}">Modifer</a>
+            {%  endif %}
 
-            <a href="{{ path('ModifierProfil') }}">Modifer</a>
         </div>
     </div>
     <!-- /.row -->
