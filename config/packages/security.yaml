@@ -33,7 +33,7 @@ security:
 
     encoders:
         App\Entity\Participants:
-            algorithm: bcrypt
+            algorithm: auto
 
 
 #role_hierarchy:

@@ -7,6 +7,7 @@ use App\Form\FormulaireAjouterProfilType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 class ProfilController extends AbstractController
@@ -47,7 +48,7 @@ class ProfilController extends AbstractController
         return $this->render('profil/afficherProfil.html.twig', ['participant' => $participant]);
     }
 
-    public function modifierProfil(Request $request)
+    public function modifierProfil(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $repository = $this->getDoctrine()->getRepository(Participants::class);
 
@@ -67,7 +68,11 @@ class ProfilController extends AbstractController
 
             $password = $request->request->get('motDePasse');
 
-            $participant->setMotDePasse($password);
+            if ($password != "")
+            {
+                $password = $encoder->encodePassword($participant, $password);
+                $participant->setMotDePasse($password);
+            }
 
 //            $task = $modifierParticipant->getData();
             $entityManager = $this->getDoctrine()->getManager();
@@ -75,6 +80,6 @@ class ProfilController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute("AfficherProfil", array('participant' => $pseudo));
         }
-        return $this->render('profil/modifierProfil.html.twig', array('nouveauProfil' => $participant->createView()));
+        return $this->render('profil/modifierProfil.html.twig', array('nouveauProfil' => $modifierParticipant->createView()));
     }
 }
