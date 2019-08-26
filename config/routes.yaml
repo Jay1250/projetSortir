@@ -40,3 +40,7 @@ NouvelleSortie:
 FiltrerSortieLieux:
   path: /sortie/filterLieux
   controller: App\Controller\SortieController:filtrerLieux
+
+FiltrerLieuxByVille:
+    path: /sortie/getLieuxByVille
+    controller: App\Controller\SortieController:getLieuxByVille

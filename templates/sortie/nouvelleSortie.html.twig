@@ -11,10 +11,22 @@
                 <h5 class="card-header">Nouvelle sortie</h5>
                 <div class="card-body">
                     {{ form_start(nouvelleSortie, {'attr': {'class': 'border border-light p-5'}}) }}
-                    <div class="row m-4">
-                        <div class="input-group col-md-6 offset-3">
+                    <div class="row">
+                        <div class="input-group col-md-6">
+                            <label>Nom</label>
+                        </div>
+                        <div class="input-group col-md-6">
+                            <label>Site</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-4">
                             {{ form_widget(nouvelleSortie.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
                             {{ form_errors(nouvelleSortie.nom) }}
+                        </div>
+                        <div class="input-group col-md-4 offset-2">
+                            {{ form_widget(nouvelleSortie.sortiesNoSortie, {'attr': {'class': 'browser-default custom-select mb-4', 'placeholder': 'Num Sortie'}}) }}
+                            {{ form_errors(nouvelleSortie.sortiesNoSortie) }}
                         </div>
                     </div>
                     <div class="row">
@@ -37,10 +49,10 @@
                     </div>
                     <div class="row">
                         <div class="input-group col-md-6">
-                            <label>Nombre d'inscrits</label>
+                            <label>Nombre d'inscrits max</label>
                         </div>
                         <div class="input-group col-md-6">
-                            <label>Durée</label>
+                            <label>Durée (en minute)</label>
                         </div>
                     </div>
                     <div class="row">
@@ -58,7 +70,7 @@
                             <label>Lieu : </label>
                         </div>
                         <div class="input-group col-md-6">
-                            <label>Site : </label>
+                            <label>Ville : </label>
                         </div>
                     </div>
                     <div class="row">
@@ -67,8 +79,28 @@
                             {{ form_errors(nouvelleSortie.lieuxNoLieu) }}
                         </div>
                         <div class="input-group col-md-4 offset-2">
-                            {{ form_widget(nouvelleSortie.sortiesNoSortie, {'attr': {'class': 'browser-default custom-select mb-4', 'placeholder': 'Num Sortie'}}) }}
-                            {{ form_errors(nouvelleSortie.sortiesNoSortie) }}
+                            <select name="lieuSelect"  class="chg browser-default custom-select mb-4" id="ville">
+                                <option></option>
+                                {% for ville in villes %}
+                                    <option value="{{ ville.noVille }}">{{ ville.nomVille }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-6">
+                            <label>Rue : <br/></label><p id="rue"></p>
+                        </div>
+                        <div class="input-group col-md-6">
+                            <label>Code postal : <br/></label><p id="codepostal"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-6">
+                            <label>Longitude : <br/></label><p id="longitude"></p>
+                        </div>
+                        <div class="input-group col-md-6">
+                            <label>Latitude : <br/></label><p id="lattitude"></p>
                         </div>
                     </div>
                     <div class="input-group">
@@ -90,12 +122,4 @@
             </div>
         </div>
     </div>
-<p id="pTest">Male</p>
-<button>change</button>
-    <select name="lieuSelect" id="lieuSelect">
-        {% for lieu in lieux %}
-            <option value="{{ lieu.noLieu }}">{{ lieu.nomLieu }}</option>
-        {% endfor %}
-    </select>
-    <label id="nomLieu"></label>
 {% endblock %}
