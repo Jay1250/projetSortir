@@ -15,6 +15,9 @@
                     <thead>
                     <tr>
                         <th>
+                            Etat
+                        </th>
+                        <th>
                             Nom
                         </th>
                         <th>
@@ -27,9 +30,6 @@
                             Places restantes
                         </th>
                         <th>
-                            Etats
-                        </th>
-                        <th>
                             Inscrit
                         </th>
                         <th>
@@ -40,77 +40,41 @@
                         </th>
                     </tr>
                     </thead>
+
                     <tbody>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Default
-                        </td>
-                    </tr>
-                    <tr class="table-active">
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Approved
-                        </td>
-                    </tr>
-                    <tr class="table-success">
-                        <td>
-                            2
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            02/04/2012
-                        </td>
-                        <td>
-                            Declined
-                        </td>
-                    </tr>
-                    <tr class="table-warning">
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            03/04/2012
-                        </td>
-                        <td>
-                            Pending
-                        </td>
-                    </tr>
-                    <tr class="table-danger">
-                        <td>
-                            4
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            04/04/2012
-                        </td>
-                        <td>
-                            Call in to confirm
-                        </td>
-                    </tr>
+                    {% for sortie in Sorties %}
+
+                        <tr>
+                            {{ include('/accueil/_gestionEtat.html.twig')}}
+
+                            <td>
+                                {{sortie.getNom()}}
+                            </td>
+                            <td>
+                                {{sortie.getDatedebut().format('d/m/Y H:i')}}
+                            </td>
+                            <td>
+                                {{sortie.getDatecloture().format('d/m/Y H:i')}}
+                            </td>
+
+                            {{ include('/accueil/_gestionNombreParticipation.html.twig')}}
+
+                            {% if(app.user in sortie.getParticipantsNoParticipant) %}
+                            <td>
+                                X
+                            </td>
+                            {% else %}
+                                <td>
+
+                                </td>
+                            {% endif %}
+
+                            <td>
+                                {{ sortie.getOrganisateur()}}
+                            </td>
+                            {{ include('/accueil/_gestionAction.html.twig')}}
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

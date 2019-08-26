@@ -134,11 +134,6 @@ class Sorties
      */
     private $participantsNoParticipant;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Villes")
-     * @ORM\JoinColumn(name="villes_no_ville", referencedColumnName="no_ville")
-     */
-    private $villes_no_ville;
 
     /**
      * Constructor
@@ -322,17 +317,4 @@ class Sorties
 
         return $this;
     }
-
-    public function getVillesNoVille(): ?Villes
-    {
-        return $this->villes_no_ville;
-    }
-
-    public function setVillesNoVille(?Villes $villes_no_ville): self
-    {
-        $this->villes_no_ville = $villes_no_ville;
-
-        return $this;
-    }
-
 }

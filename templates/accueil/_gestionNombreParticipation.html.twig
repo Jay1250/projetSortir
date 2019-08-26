@@ -1,0 +1,21 @@
+{% block body %}
+    {% if((sortie.getNbinscriptionsmax() - sortie.getParticipantsNoParticipant().count())>((2/3)*sortie.getNbinscriptionsmax() - sortie.getParticipantsNoParticipant().count()))  %}
+        <td class="table-success">
+            {{ sortie.getNbinscriptionsmax() - sortie.getParticipantsNoParticipant().count() }}
+            /
+            {{ sortie.getNbinscriptionsmax() }}
+        </td>
+    {% elseif ((sortie.getNbinscriptionsmax() - sortie.getParticipantsNoParticipant().count())>((1/3)*sortie.getNbinscriptionsmax() - sortie.getParticipantsNoParticipant().count()))%}
+        <td class="table-warning">
+            {{ sortie.getNbinscriptionsmax() - sortie.getParticipantsNoParticipant().count() }}
+            /
+            {{ sortie.getNbinscriptionsmax() }}
+        </td>
+    {% else %}
+        <td class="table-danger">
+            {{ sortie.getNbinscriptionsmax() - sortie.getParticipantsNoParticipant().count() }}
+            /
+            {{ sortie.getNbinscriptionsmax() }}
+        </td>
+    {% endif %}
+{% endblock %}

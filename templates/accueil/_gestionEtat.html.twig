@@ -1,0 +1,40 @@
+{% block body %}
+    {%  if sortie.getEtatsNoEtat() == "Ouverte" %}
+        <td class="table-success">
+            {{ sortie.getEtatsNoEtat() }}
+
+        </td>
+    {% elseif sortie.getEtatsNoEtat() == "Créée"%}
+        <td class="table-active">
+            {{ sortie.getEtatsNoEtat() }}
+
+        </td>
+    {% elseif sortie.getEtatsNoEtat() == "Clôturée"%}
+        <td class="table-danger">
+            {{ sortie.getEtatsNoEtat() }}
+
+        </td>
+
+    {% elseif sortie.getEtatsNoEtat() == "Activité en cours" %}
+        <td class="table-warning">
+            {{ sortie.getEtatsNoEtat() }}
+
+        </td>
+    {% elseif sortie.getEtatsNoEtat() == "Passée" %}
+        <td class="table-warning">
+            {{ sortie.getEtatsNoEtat() }}
+
+        </td>
+    {% elseif sortie.getEtatsNoEtat() == "Annulée" %}
+        <td class="table-warning">
+            {{ sortie.getEtatsNoEtat() }}
+
+        </td>
+
+    {% else %}
+        <td>
+            {{ sortie.getEtatsNoEtat() }}
+
+        </td>
+    {% endif %}
+{% endblock %}
