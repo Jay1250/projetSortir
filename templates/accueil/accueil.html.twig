@@ -43,37 +43,38 @@
 
                     <tbody>
                     {% for sortie in Sorties %}
+                        {% if not (sortie.getEtatsNoEtat() == "Créée" and app.user!=sortie.getOrganisateur()) %}
+                            <tr>
+                                {{ include('/accueil/_gestionEtat.html.twig')}}
 
-                        <tr>
-                            {{ include('/accueil/_gestionEtat.html.twig')}}
-
-                            <td>
-                                {{sortie.getNom()}}
-                            </td>
-                            <td>
-                                {{sortie.getDatedebut().format('d/m/Y H:i')}}
-                            </td>
-                            <td>
-                                {{sortie.getDatecloture().format('d/m/Y H:i')}}
-                            </td>
-
-                            {{ include('/accueil/_gestionNombreParticipation.html.twig')}}
-
-                            {% if(app.user in sortie.getParticipantsNoParticipant) %}
-                            <td>
-                                X
-                            </td>
-                            {% else %}
                                 <td>
-
+                                    {{sortie.getNom()}}
                                 </td>
-                            {% endif %}
+                                <td>
+                                    {{sortie.getDatedebut().format('d/m/Y H:i')}}
+                                </td>
+                                <td>
+                                    {{sortie.getDatecloture().format('d/m/Y H:i')}}
+                                </td>
 
-                            <td>
-                                {{ sortie.getOrganisateur()}}
-                            </td>
-                            {{ include('/accueil/_gestionAction.html.twig')}}
-                        </tr>
+                                {{ include('/accueil/_gestionNombreParticipation.html.twig')}}
+
+                                {% if(app.user in sortie.getParticipantsNoParticipant) %}
+                                <td>
+                                    X
+                                </td>
+                                {% else %}
+                                    <td>
+
+                                    </td>
+                                {% endif %}
+
+                                <td>
+                                    {{ sortie.getOrganisateur()}}
+                                </td>
+                                {{ include('/accueil/_gestionAction.html.twig')}}
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>
