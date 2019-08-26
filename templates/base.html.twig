@@ -19,26 +19,64 @@
                 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
                 <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
                 <SCRIPT type="text/javascript">
-                    $( "#lieuSelect" ).change(function() {
-                        alert( "Handler for .change() called." );
+                    $( "#creer_sortie_lieuxNoLieu" ).change(function() {
+                        if($(this).children("option:selected").val())
+                            infoLieu();
+                        else
+                            $('#rue').text("");
+                            $('#codepostal').text("");
+                            $('#longitude').text("");
+                            $('#lattitude').text("");
+                            $('#ville').val("");
+                    });
+                    $( "#ville" ).change(function() {
+                            $.ajax({
+                                url:"{{ path('FiltrerLieuxByVille') }}",
+                                type: "GET",
+                                dataType:"json",
+                                data:{
+                                    "ville":$(this).children("option:selected").val()
+                                },
+                                async: true,
+                                success:function(data)
+                                {
+                                    let lieu = JSON.parse(data);
+                                    $("#creer_sortie_lieuxNoLieu option").remove();
+                                    if(!$('#ville').children("option:selected").val()){
+                                        $('#creer_sortie_lieuxNoLieu').append('<option selected="selected"></option>');
+                                        $('#rue').text("");
+                                        $('#codepostal').text("");
+                                        $('#longitude').text("");
+                                        $('#lattitude').text("");
+                                        $('#ville').val("");
+                                    }
+                                    $.each(lieu, function(i, obj) {
+                                        $('#creer_sortie_lieuxNoLieu').append('<option value=' + obj.noLieu + '>' + obj.nomLieu  + '</option>');
+                                    });
+                                    if($('#ville').children("option:selected").val())infoLieu();
+                                }
+                            })
+                    });
+                    function infoLieu(){
                         $.ajax({
                             url:"{{ path('FiltrerSortieLieux') }}",
                             type: "GET",
                             dataType:"json",
                             data:{
-                                "lieu":$(this).children("option:selected").val()
+                                "lieu":$( "#creer_sortie_lieuxNoLieu" ).children("option:selected").val()
                             },
                             async: true,
                             success:function(data)
                             {
-                                console.log(data);
-                                $('#nomLieu').text(data.nomLieu);
+                                let lieu = JSON.parse(data);
+                                $('#rue').text(lieu.rue);
+                                $('#codepostal').text(lieu.villesNoVille);
+                                $('#longitude').text(lieu.longitude);
+                                $('#lattitude').text(lieu.latitude);
+                                $('#ville').val(lieu.villesNoVille.noVille);
                             }
                         })
-                            .fail(function( jqXHR, textStatus ) {
-                                alert( "Request failed: " + textStatus );
-                            })
-                    });
+                    }
                 </SCRIPT>
             {% endblock %}
         </div>

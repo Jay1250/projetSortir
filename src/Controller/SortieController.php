@@ -6,12 +6,17 @@ use App\Entity\Etats;
 use App\Entity\Lieux;
 use App\Entity\Participants;
 use App\Entity\Sorties;
+use App\Entity\Villes;
 use App\Form\CreerSortieType;
+use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class SortieController extends AbstractController
 {
@@ -24,8 +29,12 @@ class SortieController extends AbstractController
 
     public function nouvelleSortie(Request $request)
     {
+        // recup lieux
         $repository = $this->getDoctrine()->getRepository(Lieux::class);
         $lieux = $repository->findAll();
+        // recup villes
+        $repository = $this->getDoctrine()->getRepository(Villes::class);
+        $villes = $repository->findAll();
         $sorties = new Sorties();
         $nouvelleSortie = $this->createForm(CreerSortieType::class, $sorties);
         $nouvelleSortie->handleRequest($request);
@@ -41,7 +50,8 @@ class SortieController extends AbstractController
         return $this->render('sortie/nouvelleSortie.html.twig', [
             'controller_name' => 'ProfilController',
             'nouvelleSortie' => $nouvelleSortie->createView(),
-            'lieux' => $lieux
+            'lieux' => $lieux,
+            'villes' =>$villes
         ]);
     }
 
@@ -52,15 +62,29 @@ class SortieController extends AbstractController
         $lieuId = $request->get('lieu');
         $repository = $this->getDoctrine()->getRepository(Lieux::class);
         $lieu = $repository->find($lieuId);
+        $encoders = array(new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
+        $productSerialized = $serializer->serialize($lieu, 'json');
+        return new JsonResponse($productSerialized);
+    }
 
-     //  $results = array('lieu' => "test");
-     //   return new JsonResponse($results);
-      //  $arr = array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5);
-
-     //  $response = new Response(json_encode(["totooto"]));
-      //  $response->headers->set('Content-Type', 'application/json');
-       // return $response;
-        return new JsonResponse($lieu);
+    public function getLieuxByVille(Request $request){
+        if($villeId = $request->get('ville')){
+            $repository = $this->getDoctrine()->getRepository(Villes::class);
+            $ville = $repository->find($villeId);
+            $repository = $this->getDoctrine()->getRepository(Lieux::class);
+            $lieux = $repository->findBy(array('villesNoVille' => $ville));
+         }
+         else{
+             $repository = $this->getDoctrine()->getRepository(Lieux::class);
+             $lieux = $repository->findAll();
+        }
+        $encoders = array(new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
+        $productSerialized = $serializer->serialize($lieux, 'json');
+        return new JsonResponse($productSerialized);
     }
 
 
