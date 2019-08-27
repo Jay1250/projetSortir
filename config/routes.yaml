@@ -18,7 +18,7 @@ Profil:
 
 AfficherProfil:
   path: /profil/afficherProfil/{participant}
-  controller: App\Controller\ProfilController:afficherProfilfiltrerLieux
+  controller: App\Controller\ProfilController:afficherProfil
 
 NouveauProfil:
     path: /profil/nouveauProfil
@@ -36,6 +36,10 @@ Sortie:
 NouvelleSortie:
   path: /sortie/nouvelleSortie
   controller: App\Controller\SortieController:nouvelleSortie
+
+AfficherSortie:
+  path: /sortie/afficherSortie/{noSortie}
+  controller: App\Controller\SortieController:afficherSortie
 
 FiltrerSortieLieux:
   path: /sortie/filterLieux

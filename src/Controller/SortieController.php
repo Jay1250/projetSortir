@@ -42,7 +42,7 @@ class SortieController extends AbstractController
             $sorties->setOrganisateur($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $sorties->setEtatsNoEtat($entityManager->getReference(Etats::class,
-                $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Cree));
+                $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Creee));
             $entityManager->persist($sorties);
             $entityManager->flush();
             return $this->redirectToRoute("Accueil");
@@ -55,9 +55,14 @@ class SortieController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/ttoto2")
-     */
+    public function afficherSortie(Request $request)
+    {
+        $noSortie = $request->attributes->get('noSortie');
+        $repository = $this->getDoctrine()->getRepository(Sorties::class);
+        $sortie = $repository->find($noSortie);
+        return $this->render('sortie/afficherSortie.html.twig', ['sortie' =>$sortie]);
+    }
+
     public function filtrerLieux(Request $request){
         $lieuId = $request->get('lieu');
         $repository = $this->getDoctrine()->getRepository(Lieux::class);
@@ -85,14 +90,5 @@ class SortieController extends AbstractController
         $serializer = new Serializer($normalizers, $encoders);
         $productSerialized = $serializer->serialize($lieux, 'json');
         return new JsonResponse($productSerialized);
-    }
-
-
-    /**
-     * @Route("/ttoto", name="ttoto")
-     */
-    public function ttoto()
-    {
-        return new JsonResponse(['test']);
     }
 }

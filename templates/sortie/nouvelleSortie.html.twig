@@ -39,13 +39,14 @@
                     </div>
                     <div class="row">
                         <div class="input-group col-md-4">
-                            {{ form_widget(nouvelleSortie.datedebut, {'attr': {'class': 'form-control', 'type': 'date'}}) }}
+                            {{ form_widget(nouvelleSortie.datedebut, {'attr': {'class': 'form-control', 'type': 'datetime-local'}}) }}
                             {{ form_errors(nouvelleSortie.datedebut) }}
                         </div>
                         <div class="input-group col-md-4 offset-2">
-                            {{ form_widget(nouvelleSortie.datecloture, {'attr': {'class': 'form-control mb-4', 'type': 'date'}}) }}
+                            {{ form_widget(nouvelleSortie.datecloture, {'attr': {'class': 'form-control mb-4', 'type': 'datetime-local'}}) }}
                             {{ form_errors(nouvelleSortie.datecloture) }}
                         </div>
+                        <input type="datetime-local">
                     </div>
                     <div class="row">
                         <div class="input-group col-md-6">
@@ -107,12 +108,6 @@
                         {{ form_widget(nouvelleSortie.descriptioninfos, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Description'}}) }}
                         {{ form_errors(nouvelleSortie.descriptioninfos) }}
                     </div>
-
-                    <div class="input-group">
-                        {{ form_widget(nouvelleSortie.villes_no_ville, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Description'}}) }}
-                        {{ form_errors(nouvelleSortie.villes_no_ville) }}
-                    </div>
-
                     <span class="input-group-btn">
                         {{ form_widget(nouvelleSortie.creer, {'attr': {'class': 'btn btn-secondary mt-2'}}) }}
                         {{ form_widget(nouvelleSortie.creer_et_ouvrir, {'attr': {'class': 'btn btn-secondary mt-2'}}) }}
