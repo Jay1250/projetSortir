@@ -37,6 +37,10 @@ NouvelleSortie:
   path: /sortie/nouvelleSortie
   controller: App\Controller\SortieController:nouvelleSortie
 
+AfficherSortie:
+  path: /sortie/afficherSortie/{noSortie}
+  controller: App\Controller\SortieController:afficherSortie
+
 FiltrerSortieLieux:
   path: /sortie/filterLieux
   controller: App\Controller\SortieController:filtrerLieux

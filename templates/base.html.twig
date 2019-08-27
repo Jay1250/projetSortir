@@ -19,16 +19,14 @@
                 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
                 <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
                 <SCRIPT type="text/javascript">
+                    // lors du select d'un lieu chg info du lieu
                     $( "#creer_sortie_lieuxNoLieu" ).change(function() {
                         if($(this).children("option:selected").val())
                             infoLieu();
                         else
-                            $('#rue').text("");
-                            $('#codepostal').text("");
-                            $('#longitude').text("");
-                            $('#lattitude').text("");
-                            $('#ville').val("");
+                            resetLieuFields();
                     });
+                    // lors select ville recup lieu de la ville
                     $( "#ville" ).change(function() {
                             $.ajax({
                                 url:"{{ path('FiltrerLieuxByVille') }}",
@@ -41,22 +39,23 @@
                                 success:function(data)
                                 {
                                     let lieu = JSON.parse(data);
+                                    // reset select
                                     $("#creer_sortie_lieuxNoLieu option").remove();
+                                    // si champ ville null insert champ vide
                                     if(!$('#ville').children("option:selected").val()){
                                         $('#creer_sortie_lieuxNoLieu').append('<option selected="selected"></option>');
-                                        $('#rue').text("");
-                                        $('#codepostal').text("");
-                                        $('#longitude').text("");
-                                        $('#lattitude').text("");
-                                        $('#ville').val("");
+                                        resetLieuFields();
                                     }
+                                    // ajout des lieux
                                     $.each(lieu, function(i, obj) {
                                         $('#creer_sortie_lieuxNoLieu').append('<option value=' + obj.noLieu + '>' + obj.nomLieu  + '</option>');
                                     });
+                                    // si ville selectionné recup lieux
                                     if($('#ville').children("option:selected").val())infoLieu();
                                 }
                             })
                     });
+                    // recup dans la bdd les champs du lieu renseigné dans le select "lieu"
                     function infoLieu(){
                         $.ajax({
                             url:"{{ path('FiltrerSortieLieux') }}",
@@ -70,12 +69,20 @@
                             {
                                 let lieu = JSON.parse(data);
                                 $('#rue').text(lieu.rue);
-                                $('#codepostal').text(lieu.villesNoVille);
+                                $('#codepostal').text(lieu.villesNoVille.codePostal);
                                 $('#longitude').text(lieu.longitude);
                                 $('#lattitude').text(lieu.latitude);
                                 $('#ville').val(lieu.villesNoVille.noVille);
                             }
                         })
+                    }
+                    // reset les champs du lieu
+                    function resetLieuFields(){
+                        $('#rue').text("");
+                        $('#codepostal').text("");
+                        $('#longitude').text("");
+                        $('#lattitude').text("");
+                        $('#ville').val("");
                     }
                 </SCRIPT>
             {% endblock %}

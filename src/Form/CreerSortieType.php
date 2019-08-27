@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Sorties;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -17,12 +18,13 @@ class CreerSortieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('datedebut', DateType::class, [
+            ->add('datedebut', DateTimeType::class, [
                 'widget' => 'single_text',
             ])
             ->add('duree')
-            ->add('datecloture', DateType::class, [
+            ->add('datecloture', DateTimeType::class, [
                 'widget' => 'single_text',
+
             ])
             ->add('nbinscriptionsmax')
             ->add('descriptioninfos', TextareaType::class, [
@@ -36,7 +38,7 @@ class CreerSortieType extends AbstractType
             ->add('sortiesNoSortie')
             ->add('creer', SubmitType::class, ['label' => 'Enregistrer'])
            ->add('creer_et_ouvrir', SubmitType::class, ['label' => 'Enregistrer et publier'])
-                ->add('villes_no_ville')
+               // ->add('villes_no_ville')
             //->add('participantsNoParticipant')
         ;
     }
