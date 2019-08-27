@@ -60,7 +60,7 @@ class AccueilController extends AbstractController
             }
             if ($formSite != "") {
 
-                $filtre[] = $expressionBuilder->eq('sorties_no_sortie', $formDateMax);
+                $filtre[] = $expressionBuilder->eq('sortiesNoSortie', $formSite);
             }
             $usr = $this->get('security.token_storage')->getToken()->getUser();
 
@@ -83,7 +83,7 @@ class AccueilController extends AbstractController
             }
 
             if ($formPasser!=""){
-                $filtre[] = $expressionBuilder->eq('etats_no_etat', Etats::Passee);
+                $filtre[] = $expressionBuilder->eq('etatsortie', $this->getDoctrine()->getManager()->getRepository(Sites::class)->findBy(["etatsNoEtat" => Etats::Passee]));
             }
 
 
@@ -97,8 +97,15 @@ class AccueilController extends AbstractController
 //                )
 //                ->orderBy('p.price', 'DESC')
 //                ->getQuery();
-            foreach ($filtre as $fil){
-                $expression=$expressionBuilder->andX($expression,$fil);
+//            foreach ($filtre as $fil){
+//                $expression=$expressionBuilder->andX($expression,$fil);
+//            }
+            $taille=count($filtre);
+            if($taille>0){
+                $expression=$filtre[0];
+                for ($index=1; $index<$taille; $index++){
+                    $expression=$expressionBuilder->andX($expression,$filtre[$index]);
+                }
             }
 
             $sorties=$repositorySortie->matching(new Criteria($expression));
