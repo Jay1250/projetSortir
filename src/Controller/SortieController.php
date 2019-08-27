@@ -10,6 +10,8 @@ use App\Entity\Villes;
 use App\Form\CreerSortieType;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,6 +45,22 @@ class SortieController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $sorties->setEtatsNoEtat($entityManager->getReference(Etats::class,
                 $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Creee));
+            /** @var UploadedFile $profilPhotoFile */
+            $profilPhotoFile = $nouvelleSortie['photoProfil']->getData();
+            if ($profilPhotoFile) {
+                $originalFilename = pathinfo($profilPhotoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$profilPhotoFile->guessExtension();
+                try {
+                    $profilPhotoFile->move(
+                        $this->getParameter('photos_profil_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $sorties->setUrlphoto($newFilename);
+            }
             $entityManager->persist($sorties);
             $entityManager->flush();
             return $this->redirectToRoute("Accueil");

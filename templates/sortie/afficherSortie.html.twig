@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-8 offset-2">
+            <!-- Search Widget -->
+            <div class="card my-4">
+                <h5 class="card-header text-center"> {{ sortie.nom }}</h5>
+                <div class="card-body">
+                    <div class="row">
+                        {% if sortie.urlphoto %}
+                        <div class="input-group col-md-4 offset-4 mb-4">
+                                <img class="text-center col-md-12" width="50" src="{{ asset('uploads/photosProfil/'~sortie.urlphoto)}}" alt="photo sortie" />
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-6">
+                            <label><strong>Ville organisatrice :</strong> {{ sortie.sortiesNoSortie.nomSite }}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-6">
+                            <label><strong>Date début :</strong> {{ sortie.datedebut.format('H:i d/m/Y') }}</label>
+                        </div>
+                        <div class="input-group col-md-6">
+                            <label><strong>Date limite d'inscription :</strong> {{ sortie.datecloture.format('H:i d/m/Y') }}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-6">
+                            <label><strong>Nombre de places :</strong>
+                                {{ sortie.getNbinscriptionsmax() - sortie.getParticipantsNoParticipant().count() }}
+                                /
+                                {{ sortie.getNbinscriptionsmax() }}</label>
+                        </div>
+                        <div class="input-group col-md-6">
+                            <label><strong>Durée :</strong> {{ sortie.duree }} minutes</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-6">
+                            <label><strong>Lieu :</strong> {{ sortie.lieuxNoLieu.nomLieu }} ({{ sortie.lieuxNoLieu.longitude }},{{ sortie.lieuxNoLieu.latitude }})</label>
+                        </div>
+                        <div class="input-group col-md-6">
+                            <label><strong>Adresse :</strong> {{ sortie.lieuxNoLieu.rue }} {{ sortie.lieuxNoLieu.villesNoVille.codePostal }} {{ sortie.lieuxNoLieu.villesNoVille.nomVille }}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-12">
+                            <label><strong>Description : <br/></strong>{{ sortie.descriptioninfos }}</label>
+                        </div>
+                    </div>
+                    <span class="input-group-btn">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

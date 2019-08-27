@@ -30,6 +30,8 @@
 {#            {{ form_widget(nouveauProfil.motDePasse, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Password'}}) }}#}
 {#            {{ form_errors(nouveauProfil.motDePasse) }}#}
 
+            <p>Photo de profil : <br/></p>{{ form_widget(nouveauProfil.photoProfil) }}
+
             {{ form_widget(nouveauProfil.sitesNoSite, {'attr': {'class': 'browser-default custom-select mb-4'}}) }}
             {{ form_errors(nouveauProfil.sitesNoSite) }}
 

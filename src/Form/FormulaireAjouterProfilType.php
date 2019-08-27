@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Participants;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class FormulaireAjouterProfilType extends AbstractType
 {
@@ -22,6 +24,20 @@ class FormulaireAjouterProfilType extends AbstractType
            // ->add('actif')
             ->add('sitesNoSite')
           //  ->add('sortiesNoSortie')
+          ->add('photoProfil', FileType::class, [
+              'label' => 'TEst',
+              'mapped' => false,
+              'required' => false,
+              'constraints' => [
+                  new File([
+                      'maxSize' => '10240k',
+                      'mimeTypes' => [
+                          'image/*',
+                      ],
+                      'mimeTypesMessage' => 'Le fichier est incorrect',
+                  ])
+              ],
+          ])
         ;
     }
 

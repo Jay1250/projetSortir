@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Participants;
 use App\Form\FormulaireAjouterProfilType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -74,6 +76,24 @@ class ProfilController extends AbstractController
                 $participant->setMotDePasse($password);
             }
 
+         //   /** @var UploadedFile $profilPhotoFile */
+            /*
+            $profilPhotoFile = $modifierParticipant['photoProfil']->getData();
+            if ($profilPhotoFile) {
+                $originalFilename = pathinfo($profilPhotoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$profilPhotoFile->guessExtension();
+                try {
+                    $profilPhotoFile->move(
+                        $this->getParameter('photos_profil_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $participant->set
+            }
+*/
 //            $task = $modifierParticipant->getData();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($participant);

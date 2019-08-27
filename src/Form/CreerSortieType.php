@@ -7,10 +7,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class CreerSortieType extends AbstractType
 {
@@ -24,22 +26,30 @@ class CreerSortieType extends AbstractType
             ->add('duree')
             ->add('datecloture', DateTimeType::class, [
                 'widget' => 'single_text',
-
             ])
             ->add('nbinscriptionsmax')
             ->add('descriptioninfos', TextareaType::class, [
                 'attr' => ['class' => 'tinymce'],
+                'required' => false
             ])
-            //->add('etatsortie')
-            //->add('urlphoto')
-            //->add('etatsNoEtat')
             ->add('lieuxNoLieu')
-          //  ->add('organisateur')
             ->add('sortiesNoSortie')
             ->add('creer', SubmitType::class, ['label' => 'Enregistrer'])
-           ->add('creer_et_ouvrir', SubmitType::class, ['label' => 'Enregistrer et publier'])
-               // ->add('villes_no_ville')
-            //->add('participantsNoParticipant')
+            ->add('creer_et_ouvrir', SubmitType::class, ['label' => 'Enregistrer et publier'])
+            ->add('photoProfil', FileType::class, [
+                'label' => 'TEst',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '10240k',
+                        'mimeTypes' => [
+                           'image/*',
+                        ],
+                        'mimeTypesMessage' => 'Le fichier est incorrect',
+                    ])
+                ],
+            ])
         ;
     }
 
