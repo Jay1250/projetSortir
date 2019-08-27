@@ -46,7 +46,6 @@
                             {{ form_widget(nouvelleSortie.datecloture, {'attr': {'class': 'form-control mb-4', 'type': 'datetime-local'}}) }}
                             {{ form_errors(nouvelleSortie.datecloture) }}
                         </div>
-                        <input type="datetime-local">
                     </div>
                     <div class="row">
                         <div class="input-group col-md-6">
@@ -103,6 +102,9 @@
                         <div class="input-group col-md-6">
                             <label>Latitude : <br/></label><p id="lattitude"></p>
                         </div>
+                    </div>
+                    <div class="input-group mt-2 mb-2">
+                        <p>Photo de profil : <br/></p>{{ form_widget(nouvelleSortie.photoProfil) }}
                     </div>
                     <div class="input-group">
                         {{ form_widget(nouvelleSortie.descriptioninfos, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Description'}}) }}
