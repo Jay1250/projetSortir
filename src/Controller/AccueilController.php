@@ -53,14 +53,14 @@ class AccueilController extends AbstractController
 
             }
             if ($formDateMin != "") {
-                $filtre[] = $expressionBuilder->gte('datedebut', $formDateMin);
+                $filtre[] = $expressionBuilder->gte('datedebut', new \DateTime($formDateMin));
             }
             if ($formDateMax != "") {
-                $filtre[] = $expressionBuilder->lte('datedebut', $formDateMax);
+
+                $filtre[] = $expressionBuilder->lte('datedebut', new \DateTime($formDateMax));
             }
             if ($formSite != "") {
-
-                $filtre[] = $expressionBuilder->eq('sortiesNoSortie', $formSite);
+                $filtre[] = $expressionBuilder->eq('sortiesNoSortie', $this->getDoctrine()->getManager()->getRepository(Sites::class)->findOneBy(["nomSite" =>$formSite]));
             }
             $usr = $this->get('security.token_storage')->getToken()->getUser();
 
@@ -70,11 +70,13 @@ class AccueilController extends AbstractController
                 $filtre[] = $expressionBuilder->neq('organisateur', $usr);
             }
 
-            if ($formInscrit != "") {
-//                $filtre[] = $expressionBuilder->eq('organisateur', $usr);
+            $userId = $usr->getNoParticipant();
+
+//            if ($formInscrit != "") {
+//                $filtre[] = $expressionBuilder->eq('participantsNoParticipant', $usr); //'participantsNoParticipant', $usr
 //            } else {
-//                $filtre[] = $expressionBuilder->neq('organisateur', $usr);
-            }
+//                $filtre[] = $expressionBuilder->neq( 'participantsNoParticipant', $usr);
+//            }
 
             if ($formPasInscrit != "") {
 //                $filtre[] = $expressionBuilder->eq('organisateur', $usr);
@@ -83,7 +85,7 @@ class AccueilController extends AbstractController
             }
 
             if ($formPasser!=""){
-                $filtre[] = $expressionBuilder->eq('etatsortie', $this->getDoctrine()->getManager()->getRepository(Sites::class)->findBy(["etatsNoEtat" => Etats::Passee]));
+                $filtre[] = $expressionBuilder->eq('etatsortie', Etats::Passee);
             }
 
 
