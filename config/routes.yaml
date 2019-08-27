@@ -18,7 +18,7 @@ Profil:
 
 AfficherProfil:
   path: /profil/afficherProfil/{participant}
-  controller: App\Controller\ProfilController:afficherProfilfiltrerLieux
+  controller: App\Controller\ProfilController:afficherProfil
 
 NouveauProfil:
     path: /profil/nouveauProfil
