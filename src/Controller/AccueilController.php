@@ -18,6 +18,14 @@ class AccueilController extends AbstractController
 {
     public function accueil(Request $request)
     {
+        $formRecherche = "";
+        $formDateMin = "";
+        $formDateMax = "";
+        $formSite = "";
+        $formOrganisateur = "";
+        $formInscrit = "";
+        $formPasInscrit = "";
+        $formPasser = "";
 
         $repositorySortie = $this->getDoctrine()->getManager()->getRepository(Sorties::class);
 //        $sorties = $repositorySortie->findBy(["etatsNoEtat" => Etats::Ouverte,"etatsNoEtat" => Etats::Cloturee, "etatsNoEtat" => Etats::Activite_en_cours]);
@@ -111,11 +119,18 @@ class AccueilController extends AbstractController
             'controller_name' => 'AccueilController',
             'Sorties' => $sorties,
             'Sites' => $Sites,
+            'formRecherche'=>$formRecherche,
+            'formDateMin'=>$formDateMin,
+            'formDateMax'=>$formDateMax,
+            'formSite'=>$formSite,
+            'formOrganisateur'=>$formOrganisateur,
+            'formInscrit'=>$formInscrit,
+            'formPasInscrit'=>$formPasInscrit,
+            'formPasser'=>$formPasser,
+
 
 
         ]);
-
-
 
     }
 }

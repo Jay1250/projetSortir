@@ -7,15 +7,15 @@
             <div class="card-body">
                 <form method="post">
                     <div class="input-group mt-2">
-                        <input type="text" class="form-control" name="recherche" placeholder="Le nom contient...">
+                        <input type="text" class="form-control" name="recherche" value="{{ formRecherche}}" placeholder="Le nom contient...">
                     </div>
                     <label class="mt-2">Entre</label>
                     <div class="input-group">
-                        <input type="date" name="dateMin" class="form-control">
+                        <input type="date" name="dateMin" value="{{formDateMin}}" class="form-control">
                     </div>
                     <label class="mt-2">et</label>
                     <div class="input-group">
-                        <input type="date" name="dateMax" class="form-control">
+                        <input type="date" name="dateMax" value="{{formDateMax}}" class="form-control">
                     </div>
                     <div class="form-group mt-2">
                         <label for="exampleFormControlSelect1">Site</label>
@@ -26,25 +26,45 @@
                         </select>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="organisateur" value="5" id="checkOrganisateur">
+                        {% if formOrganisateur != "" %}
+                            <input class="form-check-input" type="checkbox" name="organisateur" value="5" id="checkOrganisateur" checked>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" name="organisateur" value="5" id="checkOrganisateur">
+                        {% endif %}
+
                         <label class="form-check-label" for="checkOrganisateur">
                             Je suis organisateur/trice
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="inscrit" value="true" id="checkInscrit">
+                        {% if formInscrit != "" %}
+                            <input class="form-check-input" type="checkbox" name="inscrit" value="true" id="checkInscrit" checked>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" name="inscrit" value="true" id="checkInscrit">
+                        {% endif %}
+
                         <label class="form-check-label" for="checkInscrit">
                             Je suis inscrit/e
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="pasInscrit" value="true" id="checkPasInscrit">
+                        {% if formPasInscrit != "" %}
+                            <input class="form-check-input" type="checkbox" name="pasInscrit" value="true" id="checkPasInscrit" checked>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" name="pasInscrit" value="true" id="checkPasInscrit">
+                        {% endif %}
+
                         <label class="form-check-label" for="checkPasInscrit">
                             Je ne suis pas inscrit/e
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="passer" value="true" id="checkPassées">
+                        {% if formPasser != "" %}
+                            <input class="form-check-input" type="checkbox" name="passer" value="true" id="checkPassées" checked>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" name="passer" value="true" id="checkPassées">
+                        {% endif %}
+
                         <label class="form-check-label" for="checkPassées">
                             Sorties passées
                         </label>
