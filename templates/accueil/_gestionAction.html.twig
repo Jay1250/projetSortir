@@ -1,10 +1,5 @@
 {% block body %}
     <td>
-
-
-        {% if(sortie.getEtatsNoEtat()!="Créée") %}
-            <a href="">Afficher</a>
-        {% endif %}
         {% if(sortie.getEtatsNoEtat()=="Ouverte" and sortie.getOrganisateur()!=app.user and not (app.user in sortie.getParticipantsNoParticipant)) %}
             <a href="">S'inscrire</a>
         {% endif %}
@@ -12,10 +7,7 @@
             <a href="">Se désister</a>
         {% endif %}
         {% if(sortie.getEtatsNoEtat()=="Créée") and sortie.getOrganisateur()==app.user %}
-            <a href="">Modifier</a>
             <a href="">Publier</a>
         {% endif %}
-
-
     </td>
 {% endblock %}

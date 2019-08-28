@@ -36,8 +36,7 @@ class CreerSortieType extends AbstractType
             ->add('sortiesNoSortie')
             ->add('creer', SubmitType::class, ['label' => 'Enregistrer'])
             ->add('creer_et_ouvrir', SubmitType::class, ['label' => 'Enregistrer et publier'])
-            ->add('photoProfil', FileType::class, [
-                'label' => 'TEst',
+            ->add('photoSortie', FileType::class, [
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [

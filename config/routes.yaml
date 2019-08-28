@@ -41,6 +41,10 @@ AfficherSortie:
   path: /sortie/afficherSortie/{noSortie}
   controller: App\Controller\SortieController:afficherSortie
 
+ModifierSortie:
+  path: /sortie/modifierSortie/{noSortie}
+  controller: App\Controller\SortieController:modifierSortie
+
 FiltrerSortieLieux:
   path: /sortie/filterLieux
   controller: App\Controller\SortieController:filtrerLieux

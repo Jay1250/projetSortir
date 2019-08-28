@@ -46,14 +46,14 @@ class SortieController extends AbstractController
             $sorties->setEtatsNoEtat($entityManager->getReference(Etats::class,
                 $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Creee));
             /** @var UploadedFile $profilPhotoFile */
-            $profilPhotoFile = $nouvelleSortie['photoProfil']->getData();
+            $profilPhotoFile = $nouvelleSortie['photoSortie']->getData();
             if ($profilPhotoFile) {
                 $originalFilename = pathinfo($profilPhotoFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$profilPhotoFile->guessExtension();
                 try {
                     $profilPhotoFile->move(
-                        $this->getParameter('photos_profil_directory'),
+                        $this->getParameter('photos_sortie_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
@@ -69,7 +69,56 @@ class SortieController extends AbstractController
             'controller_name' => 'ProfilController',
             'nouvelleSortie' => $nouvelleSortie->createView(),
             'lieux' => $lieux,
-            'villes' =>$villes
+            'villes' =>$villes,
+            'isModif'=>false
+        ]);
+    }
+
+    public function modifierSortie(Request $request)
+    {
+        // recup info sortie
+        $noSortie = $request->attributes->get('noSortie');
+        $repository = $this->getDoctrine()->getRepository(Sorties::class);
+        $sorties = $repository->find($noSortie);
+        // recup lieux
+        $repository = $this->getDoctrine()->getRepository(Lieux::class);
+        $lieux = $repository->findAll();
+        // recup villes
+        $repository = $this->getDoctrine()->getRepository(Villes::class);
+        $villes = $repository->findAll();
+        $nouvelleSortie = $this->createForm(CreerSortieType::class, $sorties);
+        $nouvelleSortie->handleRequest($request);
+        if($nouvelleSortie->isSubmitted() && $nouvelleSortie->isValid() && $nouvelleSortie->getClickedButton()){
+            $sorties->setOrganisateur($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $sorties->setEtatsNoEtat($entityManager->getReference(Etats::class,
+                $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Creee));
+            /** @var UploadedFile $profilPhotoFile */
+            $profilPhotoFile = $nouvelleSortie['photoSortie']->getData();
+            if ($profilPhotoFile) {
+                $originalFilename = pathinfo($profilPhotoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$profilPhotoFile->guessExtension();
+                try {
+                    $profilPhotoFile->move(
+                        $this->getParameter('photos_sortie_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $sorties->setUrlphoto($newFilename);
+            }
+            $entityManager->persist($sorties);
+            $entityManager->flush();
+            return $this->redirectToRoute("Accueil");
+        }
+        return $this->render('sortie/nouvelleSortie.html.twig', [
+            'controller_name' => 'ProfilController',
+            'nouvelleSortie' => $nouvelleSortie->createView(),
+            'lieux' => $lieux,
+            'villes' =>$villes,
+            'isModif'=>true
         ]);
     }
 

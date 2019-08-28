@@ -66,7 +66,7 @@
                                     </td>
                                 {% endif %}
                                 <td>
-                                    {{ sortie.getOrganisateur()}}
+                                    <a href=" {{ path('AfficherProfil', { 'participant': sortie.getOrganisateur() }) }}">{{ sortie.getOrganisateur()}}</a>
                                 </td>
                                 {{ include('/accueil/_gestionAction.html.twig')}}
                             </tr>
