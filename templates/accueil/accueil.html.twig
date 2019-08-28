@@ -43,7 +43,9 @@
                     </tr>
                     </thead>
                     <tbody>
+
                     {% for sortie in Sorties %}
+
                         {% if not (sortie.getEtatsNoEtat() == "Créée" and app.user!=sortie.getOrganisateur()) %}
                             <tr>
                                 {{ include('/accueil/_gestionEtat.html.twig')}}
