@@ -21,7 +21,7 @@
                         <label for="exampleFormControlSelect1">Site</label>
                         <select class="form-control" name="site" id="exampleFormControlSelect1">
                             {% for site in Sites %}
-                                <option>{{site}}</option>
+                                <option value={{ site.getNoSite() }}>{{site}}</option>
                             {% endfor %}
                         </select>
                     </div>
