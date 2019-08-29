@@ -6,6 +6,7 @@ use App\Entity\Participants;
 use App\Entity\Sites;
 use App\Entity\Sorties;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,12 @@ class AccueilController extends AbstractController
 {
     public function accueil(Request $request)
     {
+        // Procedure stockée
+        /** @var Connection $conn */
+        $conn =$this->getDoctrine()->getConnection();
+        $query = $conn->prepare('Call update_sorties_etat ()');
+        $query->execute();
+
         $formRecherche = "";
         $formDateMin = "";
         $formDateMax = "";

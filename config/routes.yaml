@@ -52,3 +52,7 @@ FiltrerSortieLieux:
 FiltrerLieuxByVille:
     path: /sortie/getLieuxByVille
     controller: App\Controller\SortieController:getLieuxByVille
+
+UpdateSortieEtat:
+    path: /test
+    controller: App\Controller\AccueilController::updateSortieEtat
