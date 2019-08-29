@@ -18,10 +18,12 @@ class AccueilController extends AbstractController
 {
     public function accueil(Request $request)
     {
+        $numSite=$this->getUser()->getSitesNoSite()->getNoSite();
+        dump($numSite);
         $formRecherche = "";
         $formDateMin = "";
         $formDateMax = "";
-        $formSite = "";
+        $formSite = $numSite;
         $formOrganisateur = "";
         $formInscrit = "";
         $formPasInscrit = "";
@@ -45,65 +47,66 @@ class AccueilController extends AbstractController
             $formInscrit = $request->request->get("inscrit");
             $formPasInscrit = $request->request->get("pasInscrit");
             $formPasser = $request->request->get("passer");
+        }
 
 
-            $em=$this->getDoctrine()->getManager();
-            $qb = $em->createQueryBuilder();
-            /** @var QueryBuilder $qb */
-            $qb ->select('s')
-                ->from(Sorties::class,'s')
-                ;
+        $em=$this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        /** @var QueryBuilder $qb */
+        $qb ->select('s')
+            ->from(Sorties::class,'s')
+            ;
 
-            $qb->where($qb->expr()->like('s.nom', $qb->expr()->literal($formRecherche.'%')));
+        $qb->where($qb->expr()->like('s.nom', $qb->expr()->literal($formRecherche.'%')));
 
-            if ($formDateMin != "") {
+        if ($formDateMin != "") {
 //                $filtre[] = $expressionBuilder->gte('datedebut', new \DateTime($formDateMin));
-                $qb->andWhere($qb->expr()->gte('s.datedebut', $qb->expr()->literal($formDateMin)));
-            }
-            if ($formDateMax != "") {
+            $qb->andWhere($qb->expr()->gte('s.datedebut', $qb->expr()->literal($formDateMin)));
+        }
+        if ($formDateMax != "") {
 //                $filtre[] = $expressionBuilder->lte('datedebut', new \DateTime($formDateMax));
-                $qb->andWhere($qb->expr()->lte('s.datedebut', $qb->expr()->literal($formDateMax)));
-            }
-            if ($formSite != "") {
+            $qb->andWhere($qb->expr()->lte('s.datedebut', $qb->expr()->literal($formDateMax)));
+        }
+        if ($formSite != "") {
 //                $filtre[] = $expressionBuilder->eq('sortiesNoSortie', $this->getDoctrine()->getManager()->getRepository(Sites::class)->findOneBy(["nomSite" =>$formSite]));
-                $qb->andWhere($qb->expr()->eq('s.sortiesNoSortie', $qb->expr()->literal($formSite)));
-            }
+            $qb->andWhere($qb->expr()->eq('s.sortiesNoSortie', $qb->expr()->literal($formSite)));
+        }
 
-            $usr = $this->get('security.token_storage')->getToken()->getUser();
-            $usrId= $usr->getNoParticipant();
-            if ($formOrganisateur != "") {
+        $usr = $this->get('security.token_storage')->getToken()->getUser();
+        $usrId= $usr->getNoParticipant();
+        if ($formOrganisateur != "") {
 //                $filtre[] = $expressionBuilder->eq('organisateur', $usr);
-                $qb->andWhere($qb->expr()->eq('s.organisateur', $qb->expr()->literal($usrId)));
-            } else {
+            $qb->andWhere($qb->expr()->eq('s.organisateur', $qb->expr()->literal($usrId)));
+        } else {
 //                $filtre[] = $expressionBuilder->neq('organisateur', $usr);
-                $qb->andWhere($qb->expr()->neq('s.organisateur', $qb->expr()->literal($usrId)));
-            }
+            $qb->andWhere($qb->expr()->neq('s.organisateur', $qb->expr()->literal($usrId)));
+        }
 
-            if ($formPasser!=""){
+        if ($formPasser!=""){
 //                $filtre[] = $expressionBuilder->eq('etatsortie', Etats::Passee);
-                $qb->andWhere($qb->expr()->eq('s.etatsNoEtat', $qb->expr()->literal(Etats::Passee)));
-            } else {
+            $qb->andWhere($qb->expr()->eq('s.etatsNoEtat', $qb->expr()->literal(Etats::Passee)));
+        } else {
 //
-                $qb->andWhere($qb->expr()->neq('s.etatsNoEtat', $qb->expr()->literal(Etats::Passee)));
-            }
+            $qb->andWhere($qb->expr()->neq('s.etatsNoEtat', $qb->expr()->literal(Etats::Passee)));
+        }
 
 
 
-            if ($formInscrit != "" and $formPasInscrit != "") {
+        if ($formInscrit != "" and $formPasInscrit != "") {
 
-            } elseif($formInscrit != "") {
+        } elseif($formInscrit != "") {
 
-                $qb->leftJoin('s.participantsNoParticipant', 'p');
-                $qb->andWhere($qb->expr()->eq('p', $qb->expr()->literal($usrId)));
+            $qb->leftJoin('s.participantsNoParticipant', 'p');
+            $qb->andWhere($qb->expr()->eq('p', $qb->expr()->literal($usrId)));
 
-            }elseif ($formPasInscrit != ""){
-                $qb->leftJoin('s.participantsNoParticipant', 'p');
-                $qb->andWhere($qb->expr()->orX($qb->expr()->neq('p', $qb->expr()->literal($usrId)),$qb->expr()->isNull('p')));
-            }
+        }elseif ($formPasInscrit != ""){
+            $qb->leftJoin('s.participantsNoParticipant', 'p');
+            $qb->andWhere($qb->expr()->orX($qb->expr()->neq('p', $qb->expr()->literal($usrId)),$qb->expr()->isNull('p')));
+        }
 
 
-            $query = $qb->getQuery();
-            $sorties=$query->getResult();
+        $query = $qb->getQuery();
+        $sorties=$query->getResult();
 //            dump($sorties);
 
 //            $sorties=$repositorySortie->matching(new Criteria($expression));
@@ -113,8 +116,8 @@ class AccueilController extends AbstractController
 //                'Sorties' => $sorties,
 //                'Sites' => $Sites,
 //            ]);
-        }
 
+        dump($formSite);
         return $this->render('accueil/accueil.html.twig', [
             'controller_name' => 'AccueilController',
             'Sorties' => $sorties,
@@ -127,8 +130,6 @@ class AccueilController extends AbstractController
             'formInscrit'=>$formInscrit,
             'formPasInscrit'=>$formPasInscrit,
             'formPasser'=>$formPasser,
-
-
 
         ]);
 

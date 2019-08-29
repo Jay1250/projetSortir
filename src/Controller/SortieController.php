@@ -158,4 +158,30 @@ class SortieController extends AbstractController
         $productSerialized = $serializer->serialize($lieux, 'json');
         return new JsonResponse($productSerialized);
     }
+
+    public function inscrire(Request $request){
+        $numSortie = $request->attributes->get('noSortie');
+        $repositorySortie = $this->getDoctrine()->getManager()->getRepository(Sorties::class);
+        $sortie=$repositorySortie->findOneBy(["noSortie" => $numSortie ]);
+        $this->getUser()->addSortiesNoSortie($sortie);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        return $this->redirectToRoute("Accueil");
+
+    }
+
+    public function deinscrire(Request $request){
+        $numSortie = $request->attributes->get('noSortie');
+        $repositorySortie = $this->getDoctrine()->getManager()->getRepository(Sorties::class);
+        $sortie=$repositorySortie->findOneBy(["noSortie" => $numSortie ]);
+        $this->getUser()->removeSortiesNoSortie($sortie);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        return $this->redirectToRoute("Accueil");
+
+    }
 }

@@ -18,12 +18,18 @@
                         <input type="date" name="dateMax" value="{{formDateMax}}" class="form-control">
                     </div>
                     <div class="form-group mt-2">
+
                         <label for="exampleFormControlSelect1">Site</label>
                         <select class="form-control" name="site" id="exampleFormControlSelect1">
                             {% for site in Sites %}
-                                <option value={{ site.getNoSite() }}>{{site}}</option>
+                                {% if formSite==site.getNoSite() %}
+                                    <option value="{{ site.getNoSite() }}" selected="selected">{{site}}</option>
+                                {% else %}
+                                    <option value="{{ site.getNoSite() }}" >{{site}}</option>
+                                {% endif %}
                             {% endfor %}
                         </select>
+
                     </div>
                     <div class="form-check">
                         {% if formOrganisateur != "" %}

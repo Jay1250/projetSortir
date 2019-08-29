@@ -52,3 +52,11 @@ FiltrerSortieLieux:
 FiltrerLieuxByVille:
     path: /sortie/getLieuxByVille
     controller: App\Controller\SortieController:getLieuxByVille
+
+Inscrire:
+  path: /sortie/inscrire/{noSortie}
+  controller: App\Controller\SortieController:inscrire
+
+Deinscrire:
+  path: /sortie/Deinscrire/{noSortie}
+  controller: App\Controller\SortieController:deinscrire
