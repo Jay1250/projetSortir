@@ -58,5 +58,9 @@ Inscrire:
   controller: App\Controller\SortieController:inscrire
 
 Deinscrire:
-  path: /sortie/Deinscrire/{noSortie}
+  path: /sortie/deinscrire/{noSortie}
   controller: App\Controller\SortieController:deinscrire
+
+Publier:
+  path: /sortie/publier/{noSortie}
+  controller: App\Controller\SortieController:publier

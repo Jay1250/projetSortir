@@ -7,7 +7,7 @@
             <a href="{{ path('Deinscrire', { 'noSortie': sortie.getNoSortie() }) }}">Se désister</a>
         {% endif %}
         {% if(sortie.getEtatsNoEtat()=="Créée") and sortie.getOrganisateur()==app.user %}
-            <a href="">Publier</a>
+            <a href="{{ path('Publier', { 'noSortie': sortie.getNoSortie() }) }}">Publier</a>
         {% endif %}
     </td>
 {% endblock %}
