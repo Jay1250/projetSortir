@@ -304,6 +304,7 @@ class Sorties
     {
         if (!$this->participantsNoParticipant->contains($participantsNoParticipant)) {
             $this->participantsNoParticipant[] = $participantsNoParticipant;
+
         }
 
         return $this;
