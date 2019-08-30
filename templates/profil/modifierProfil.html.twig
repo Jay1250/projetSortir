@@ -9,29 +9,35 @@
         {{ form_start(nouveauProfil, {'attr': {'class': 'border border-light p-5 col-md-4 offset-4'}}) }}
 
             <p class="h4 mb-4 text-center">Mon profil</p>
-
+            <label><strong>Pseudo : </strong></label>
             {{ form_widget(nouveauProfil.pseudo, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Pseudo'}}) }}
             {{ form_errors(nouveauProfil.pseudo) }}
 
+            <label><strong>Nom : </strong></label>
             {{ form_widget(nouveauProfil.nom, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Nom'}}) }}
             {{ form_errors(nouveauProfil.nom) }}
 
+             <label><strong>Prenom : </strong></label>
             {{ form_widget(nouveauProfil.prenom, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Prénom'}}) }}
             {{ form_errors(nouveauProfil.prenom) }}
 
+            <label><strong>Telephone : </strong></label>
             {{ form_widget(nouveauProfil.telephone, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Téléphone'}}) }}
             {{ form_errors(nouveauProfil.telephone) }}
 
+            <label><strong>Email : </strong></label>
             {{ form_widget(nouveauProfil.mail, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Mail'}}) }}
             {{ form_errors(nouveauProfil.mail) }}
 
+            <label><strong>Mot de passe : </strong></label>
             <input class="form-control mb-4"  type="password" name="motDePasse" id="motDePasse" placeholder="Password" >
 
 {#            {{ form_widget(nouveauProfil.motDePasse, {'attr': {'class': 'form-control mb-4', 'placeholder': 'Password'}}) }}#}
 {#            {{ form_errors(nouveauProfil.motDePasse) }}#}
 
-            <p>Photo de profil : <br/></p>{{ form_widget(nouveauProfil.photoProfil) }}
+        <p><strong>Photo de profil : </strong><br/></p>{{ form_widget(nouveauProfil.photoProfil) }}
 
+           <br/> <label class="mt-4"><strong>Site : </strong></label>
             {{ form_widget(nouveauProfil.sitesNoSite, {'attr': {'class': 'browser-default custom-select mb-4'}}) }}
             {{ form_errors(nouveauProfil.sitesNoSite) }}
 

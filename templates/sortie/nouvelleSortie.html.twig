@@ -8,7 +8,7 @@
         <div class="col-md-8 offset-2">
             <!-- Search Widget -->
             <div class="card my-4">
-                <h5 class="card-header">Nouvelle sortie</h5>
+                <h5 class="card-header">{% if(isModif) %}Modifier sortie {% else %}Nouvelle sortie {% endif %}</h5>
                 <div class="card-body">
                     {{ form_start(nouvelleSortie, {'attr': {'class': 'border border-light p-5'}}) }}
                     <div class="row">
