@@ -66,7 +66,7 @@ class Sorties
     private $descriptioninfos;
 
     /**
-     * @var int|null
+     * @var int|1
      *
      * @ORM\Column(name="etatsortie", type="integer", nullable=true)
      */

@@ -44,6 +44,8 @@ class AccueilController extends AbstractController
 
         if($request->isMethod('post')) {
 
+
+
 //            $posts = $request->request->all();
             $formRecherche = $request->request->get("recherche");
             $formDateMin = $request->request->get("dateMin");
@@ -55,6 +57,8 @@ class AccueilController extends AbstractController
             $formPasser = $request->request->get("passer");
         }
 
+        $usr = $this->get('security.token_storage')->getToken()->getUser();
+        $usrId= $usr->getNoParticipant();
 
         $em=$this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
@@ -62,46 +66,53 @@ class AccueilController extends AbstractController
         $qb ->select('s')
             ->from(Sorties::class,'s')
             ;
+        if ( $formRecherche != "" or $formDateMin != "" or $formDateMax != "" or $formOrganisateur != "" or $formInscrit != "" or $formPasInscrit != "" or $formPasser != "") {
+            if ($formOrganisateur != "") {
+                $qb->orWhere($qb->expr()->eq('s.organisateur', $qb->expr()->literal($usrId)));
+            } else {
+//                $qb->andWhere($qb->expr()->neq('s.organisateur', $qb->expr()->literal($usrId)));
+            }
 
-        $qb->where($qb->expr()->like('s.nom', $qb->expr()->literal($formRecherche.'%')));
+            if ($formInscrit != "" and $formPasInscrit != "") {
+                $qb->leftJoin('s.participantsNoParticipant', 'p');
+                $qb->orWhere($qb->expr()->orX(
+                    $qb->expr()->eq('p', $qb->expr()->literal($usrId)),
+                    $qb->expr()->orX(
+                        $qb->expr()->neq('p', $qb->expr()->literal($usrId)),
+                        $qb->expr()->isNull('p')
+                    )
+                ));
+            } elseif ($formInscrit != "") {
 
-        if ($formDateMin != "") {
-            $qb->andWhere($qb->expr()->gte('s.datedebut', $qb->expr()->literal($formDateMin)));
+                $qb->leftJoin('s.participantsNoParticipant', 'p');
+                $qb->orWhere($qb->expr()->eq('p', $qb->expr()->literal($usrId)));
+
+            } elseif ($formPasInscrit != "") {
+                $qb->leftJoin('s.participantsNoParticipant', 'p');
+                $qb->orWhere($qb->expr()->orX($qb->expr()->neq('p', $qb->expr()->literal($usrId)), $qb->expr()->isNull('p')));
+            }
+
+
+            if ($formPasser != "") {
+                $qb->orWhere($qb->expr()->eq('s.etatsNoEtat', $qb->expr()->literal(Etats::Passee)));
+            } else {
+                $qb->andWhere($qb->expr()->neq('s.etatsNoEtat', $qb->expr()->literal(Etats::Passee)));
+            }
+
+            if ($formDateMin != "") {
+                $qb->andWhere($qb->expr()->gte('s.datedebut', $qb->expr()->literal($formDateMin)));
+            }
+            if ($formDateMax != "") {
+                $qb->andWhere($qb->expr()->lte('s.datedebut', $qb->expr()->literal($formDateMax)));
+            }
+            if ($formSite != "") {
+                $qb->andWhere($qb->expr()->eq('s.sortiesNoSortie', $qb->expr()->literal($formSite)));
+            }
+            $qb->andWhere($qb->expr()->like('s.nom', $qb->expr()->literal('%' . $formRecherche . '%')));
         }
-        if ($formDateMax != "") {
-            $qb->andWhere($qb->expr()->lte('s.datedebut', $qb->expr()->literal($formDateMax)));
-        }
-        if ($formSite != "") {
-            $qb->andWhere($qb->expr()->eq('s.sortiesNoSortie', $qb->expr()->literal($formSite)));
-        }
 
-        $usr = $this->get('security.token_storage')->getToken()->getUser();
-        $usrId= $usr->getNoParticipant();
-        if ($formOrganisateur != "") {
-            $qb->andWhere($qb->expr()->eq('s.organisateur', $qb->expr()->literal($usrId)));
-        } else {
-            $qb->andWhere($qb->expr()->neq('s.organisateur', $qb->expr()->literal($usrId)));
-        }
+        $qb->andWhere($qb->expr()->eq('s.etatsortie', $qb->expr()->literal(1)));
 
-        if ($formPasser!=""){
-            $qb->andWhere($qb->expr()->eq('s.etatsNoEtat', $qb->expr()->literal(Etats::Passee)));
-        } else {
-            $qb->andWhere($qb->expr()->neq('s.etatsNoEtat', $qb->expr()->literal(Etats::Passee)));
-        }
-
-
-
-        if ($formInscrit != "" and $formPasInscrit != "") {
-
-        } elseif($formInscrit != "") {
-
-            $qb->leftJoin('s.participantsNoParticipant', 'p');
-            $qb->andWhere($qb->expr()->eq('p', $qb->expr()->literal($usrId)));
-
-        }elseif ($formPasInscrit != ""){
-            $qb->leftJoin('s.participantsNoParticipant', 'p');
-            $qb->andWhere($qb->expr()->orX($qb->expr()->neq('p', $qb->expr()->literal($usrId)),$qb->expr()->isNull('p')));
-        }
 
 
         $query = $qb->getQuery();
