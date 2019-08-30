@@ -90,7 +90,7 @@ class SortieController extends AbstractController
         $nouvelleSortie = $this->createForm(CreerSortieType::class, $sorties);
         $nouvelleSortie->handleRequest($request);
 
-        if($sorties.getOrganisateur()<>$this->getUser()){
+        if($sorties->getOrganisateur()<>$this->getUser()){
             return $this->redirectToRoute('Accueil');
         }
 
@@ -172,9 +172,13 @@ class SortieController extends AbstractController
         $sortie=$repositorySortie->findOneBy(["noSortie" => $numSortie ]);
         $this->getUser()->addSortiesNoSortie($sortie);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($sortie);
-        $entityManager->flush();
+
+
+        if($sortie->getNbinscriptionsmax()>=$sortie->getParticipantsNoParticipant()->count()){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute("Accueil");
 
     }
