@@ -99,7 +99,7 @@ class SortieController extends AbstractController
             $sorties->setEtatsortie(1);
             $entityManager = $this->getDoctrine()->getManager();
             $sorties->setEtatsNoEtat($entityManager->getReference(Etats::class,
-                $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Creee));
+                $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Ouverte));
             /** @var UploadedFile $profilPhotoFile */
             $profilPhotoFile = $nouvelleSortie['photoSortie']->getData();
             if ($profilPhotoFile) {
@@ -125,7 +125,8 @@ class SortieController extends AbstractController
             'nouvelleSortie' => $nouvelleSortie->createView(),
             'lieux' => $lieux,
             'villes' =>$villes,
-            'isModif'=>true
+            'isModif'=>true,
+            'sortie'=>$sorties,
         ]);
     }
 
