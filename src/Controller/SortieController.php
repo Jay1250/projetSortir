@@ -42,6 +42,7 @@ class SortieController extends AbstractController
         $nouvelleSortie->handleRequest($request);
         if($nouvelleSortie->isSubmitted() && $nouvelleSortie->isValid() && $nouvelleSortie->getClickedButton()){
             $sorties->setOrganisateur($this->getUser());
+            $sorties->setEtatsortie(1);
             $entityManager = $this->getDoctrine()->getManager();
             $sorties->setEtatsNoEtat($entityManager->getReference(Etats::class,
                 $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Creee));
@@ -90,6 +91,7 @@ class SortieController extends AbstractController
         $nouvelleSortie->handleRequest($request);
         if($nouvelleSortie->isSubmitted() && $nouvelleSortie->isValid() && $nouvelleSortie->getClickedButton()){
             $sorties->setOrganisateur($this->getUser());
+            $sorties->setEtatsortie(1);
             $entityManager = $this->getDoctrine()->getManager();
             $sorties->setEtatsNoEtat($entityManager->getReference(Etats::class,
                 $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Creee));
