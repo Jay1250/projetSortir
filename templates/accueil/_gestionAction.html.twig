@@ -9,5 +9,8 @@
         {% if(sortie.getEtatsNoEtat()=="Créée") and sortie.getOrganisateur()==app.user %}
             <a href="{{ path('Publier', { 'noSortie': sortie.getNoSortie() }) }}">Publier</a>
         {% endif %}
+        {% if((sortie.getEtatsNoEtat()=="Ouverte" or sortie.getEtatsNoEtat()=="Créée") and sortie.getOrganisateur()==app.user ) %}
+            <a href="{{ path('Annuler', { 'noSortie': sortie.getNoSortie() }) }}">Annuler</a>
+        {% endif %}
     </td>
 {% endblock %}
