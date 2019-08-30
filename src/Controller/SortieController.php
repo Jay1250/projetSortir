@@ -89,6 +89,11 @@ class SortieController extends AbstractController
         $villes = $repository->findAll();
         $nouvelleSortie = $this->createForm(CreerSortieType::class, $sorties);
         $nouvelleSortie->handleRequest($request);
+
+        if($sorties.getOrganisateur()<>$this->getUser()){
+            return $this->redirectToRoute('Accueil');
+        }
+
         if($nouvelleSortie->isSubmitted() && $nouvelleSortie->isValid() && $nouvelleSortie->getClickedButton()){
             $sorties->setOrganisateur($this->getUser());
             $sorties->setEtatsortie(1);

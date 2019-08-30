@@ -54,9 +54,12 @@
                             <label><strong>Description : <br/></strong>{{ sortie.descriptioninfos }}</label>
                         </div>
                     </div>
-                    <span class="input-group-btn">
-                        <a href="{{ path('ModifierSortie', { 'noSortie': sortie.getNoSortie() }) }}" class="btn btn btn-light mt-3">Modifier</a>
-                    </span>
+                    {%  if (sortie.getOrganisateur() == app.user)%}
+                        <span class="input-group-btn">
+                            <a href="{{ path('ModifierSortie', { 'noSortie': sortie.getNoSortie() }) }}" class="btn btn btn-light mt-3">Modifier</a>
+                        </span>
+                    {% endif %}
+
                 </div>
             </div>
         </div>

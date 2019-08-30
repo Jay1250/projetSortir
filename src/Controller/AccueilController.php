@@ -19,6 +19,7 @@ class AccueilController extends AbstractController
 {
     public function accueil(Request $request)
     {
+
         // Procedure stockée
         /** @var Connection $conn */
         $conn =$this->getDoctrine()->getConnection();

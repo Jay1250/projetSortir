@@ -16,12 +16,15 @@
                     <li class="nav-item {% if app.request.attributes.get('_route') == 'AfficherProfil' %}active{% endif %}" >
                         <a class="nav-link" href="{{ path('AfficherProfil', { 'participant': app.user }) }}">Mon profil</a>
                     </li>
-                    <li class="nav-item {% if app.request.attributes.get('_route') == 'AfficherProfil' %}active{% endif %}">
-                        <a class="nav-link" href="#">Villes</a>
-                    </li>
-                    <li class="nav-item {% if app.request.attributes.get('_route') == 'AfficherProfil' %}active{% endif %}">
-                        <a class="nav-link" href="#">Sites</a>
-                    </li>
+                    {% if(is_granted('ROLE_ADMIN')) %}
+                        <li class="nav-item {% if app.request.attributes.get('_route') == 'AfficherProfil' %}active{% endif %}">
+                            <a class="nav-link" href="#">Villes</a>
+                        </li>
+                        <li class="nav-item {% if app.request.attributes.get('_route') == 'AfficherProfil' %}active{% endif %}">
+                            <a class="nav-link" href="#">Sites</a>
+                        </li>
+                    {% endif %}
+
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
