@@ -1,6 +1,6 @@
 {% block body %}
     <td>
-        {% if(sortie.getEtatsNoEtat()=="Ouverte" and sortie.getOrganisateur()!=app.user and not (app.user in sortie.getParticipantsNoParticipant)) %}
+        {% if(sortie.getEtatsNoEtat()=="Ouverte" and sortie.getOrganisateur()!=app.user and  (sortie.getNbinscriptionsmax() - sortie.getParticipantsNoParticipant().count())>0  and not (app.user in sortie.getParticipantsNoParticipant)) %}
             <a href="{{ path('Inscrire', { 'noSortie': sortie.getNoSortie() }) }}">S'inscrire</a>
         {% endif %}
         {% if(sortie.getEtatsNoEtat()=="Ouverte" and sortie.getOrganisateur()!=app.user and (app.user in sortie.getParticipantsNoParticipant)) %}

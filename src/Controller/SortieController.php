@@ -89,12 +89,17 @@ class SortieController extends AbstractController
         $villes = $repository->findAll();
         $nouvelleSortie = $this->createForm(CreerSortieType::class, $sorties);
         $nouvelleSortie->handleRequest($request);
+
+        if($sorties->getOrganisateur()<>$this->getUser()){
+            return $this->redirectToRoute('Accueil');
+        }
+
         if($nouvelleSortie->isSubmitted() && $nouvelleSortie->isValid() && $nouvelleSortie->getClickedButton()){
             $sorties->setOrganisateur($this->getUser());
             $sorties->setEtatsortie(1);
             $entityManager = $this->getDoctrine()->getManager();
             $sorties->setEtatsNoEtat($entityManager->getReference(Etats::class,
-                $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Creee));
+                $nouvelleSortie->getClickedButton()->getName() === 'creer_et_ouvrir'? Etats::Ouverte: Etats::Ouverte));
             /** @var UploadedFile $profilPhotoFile */
             $profilPhotoFile = $nouvelleSortie['photoSortie']->getData();
             if ($profilPhotoFile) {
@@ -120,7 +125,8 @@ class SortieController extends AbstractController
             'nouvelleSortie' => $nouvelleSortie->createView(),
             'lieux' => $lieux,
             'villes' =>$villes,
-            'isModif'=>true
+            'isModif'=>true,
+            'sortie'=>$sorties,
         ]);
     }
 
@@ -167,9 +173,13 @@ class SortieController extends AbstractController
         $sortie=$repositorySortie->findOneBy(["noSortie" => $numSortie ]);
         $this->getUser()->addSortiesNoSortie($sortie);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($sortie);
-        $entityManager->flush();
+
+
+        if($sortie->getNbinscriptionsmax()>=$sortie->getParticipantsNoParticipant()->count()){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute("Accueil");
 
     }
