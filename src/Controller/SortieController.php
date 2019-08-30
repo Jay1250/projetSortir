@@ -186,4 +186,23 @@ class SortieController extends AbstractController
         return $this->redirectToRoute("Accueil");
 
     }
+    public function publier(Request $request){
+        $numSortie = $request->attributes->get('noSortie');
+        $repositorySortie = $this->getDoctrine()->getManager()->getRepository(Sorties::class);
+        $sortie=$repositorySortie->findOneBy(["noSortie" => $numSortie ]);
+
+        if($sortie->getEtatsNoEtat()->getNoEtat()==(Etats::Creee)){
+
+            $repositoryEtat = $this->getDoctrine()->getManager()->getRepository(Etats::class);
+            $etat=$repositoryEtat->findOneBy(["noEtat" => Etats::Ouverte ]);
+            $sortie->setEtatsNoEtat($etat);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+        }
+        return $this->redirectToRoute("Accueil");
+
+    }
 }
