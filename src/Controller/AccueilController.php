@@ -30,9 +30,9 @@ class AccueilController extends AbstractController
         $formDateMin = "";
         $formDateMax = "";
         $formSite = $numSite;
-        $formOrganisateur = "";
-        $formInscrit = "";
-        $formPasInscrit = "";
+        $formOrganisateur = "1";
+        $formInscrit = "1";
+        $formPasInscrit = "1";
         $formPasser = "";
 
         $repositorySortie = $this->getDoctrine()->getManager()->getRepository(Sorties::class);
