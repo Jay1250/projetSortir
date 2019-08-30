@@ -16,10 +16,10 @@
                     <li class="nav-item {% if app.request.attributes.get('_route') == 'AfficherProfil' %}active{% endif %}" >
                         <a class="nav-link" href="{{ path('AfficherProfil', { 'participant': app.user }) }}">Mon profil</a>
                     </li>
-                    <li class="nav-item {% if app.request.attributes.get('_route') == 'AfficherProfil' %}active{% endif %}">
+                    <li class="nav-item {% if app.request.attributes.get('_route') == '#' %}active{% endif %}">
                         <a class="nav-link" href="#">Villes</a>
                     </li>
-                    <li class="nav-item {% if app.request.attributes.get('_route') == 'AfficherProfil' %}active{% endif %}">
+                    <li class="nav-item {% if app.request.attributes.get('_route') == '#' %}active{% endif %}">
                         <a class="nav-link" href="#">Sites</a>
                     </li>
                 </ul>

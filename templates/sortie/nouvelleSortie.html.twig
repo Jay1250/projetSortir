@@ -57,7 +57,7 @@
                     </div>
                     <div class="row">
                         <div class="input-group col-md-2">
-                            {{ form_widget(nouvelleSortie.nbinscriptionsmax, {'attr': {'class': 'form-control mb-4'}}) }}
+                            {{ form_widget(nouvelleSortie.nbinscriptionsmax, {'attr': {'class': 'form-control mb-4', 'min':'2'}}) }}
                             {{ form_errors(nouvelleSortie.nbinscriptionsmax) }}
                         </div>
                         <div class="input-group col-md-2 offset-4">
